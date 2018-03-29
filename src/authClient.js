@@ -34,7 +34,11 @@ export default (type, params) => {
         break
       }
       case AUTH_ERROR: {
-        break
+        const status  = params.message.status
+        if (status === 401 || status === 403) {
+            return Promise.reject()
+        }
+        return Promise.resolve()
       }
       case AUTH_CHECK: {
         break
