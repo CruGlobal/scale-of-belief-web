@@ -5,8 +5,8 @@ import {
     HttpError
 } from 'admin-on-rest'
 import { stringify } from 'query-string'
-const _extends2 = require('babel-runtime/helpers/extends');
-const _extends3 = _interopRequireDefault(_extends2);
+const _extends2 = require('babel-runtime/helpers/extends')
+const _extends3 = _interopRequireDefault(_extends2)
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj } }
 
