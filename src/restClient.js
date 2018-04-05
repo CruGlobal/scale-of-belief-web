@@ -139,9 +139,5 @@ const convertHTTPResponseToREST = (response, type, resource, params) => {
 export default (type, resource, params) => {
   const { url, options } = convertRESTRequestToHTTP(type, resource, params)
   return fetchJson(url, options)
-    .then(response => convertHTTPResponseToREST(response, type, resource, params), (error) => {
-      if (error.status === 404) {
-        convertHTTPResponseToREST(null, type, resource, params, error)
-      }
-    })
+    .then(response => convertHTTPResponseToREST(response, type, resource, params))
 }
