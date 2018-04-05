@@ -4,7 +4,6 @@ import authClient from './authClient'
 import loginPage from './loginPage'
 import { ScoreList } from './scores'
 import restClient from './restClient'
-require('dotenv').config()
 
 const App = () => (
   <Admin authClient={authClient}

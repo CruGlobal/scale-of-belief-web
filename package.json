@@ -15,7 +15,6 @@
   },
   "devDependencies": {
     "ajv": "^6.4.0",
-    "dotenv": "^5.0.1",
     "react-scripts": "^1.1.4"
   }
 }
