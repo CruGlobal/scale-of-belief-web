@@ -10,7 +10,7 @@ const App = () => (
   <Admin authClient={authClient}
          loginPage={loginPage}
          restClient={restClient}>
-      <Resource name="scores" list={ScoreList} />
+      <Resource name='scores' list={ScoreList} />
   </Admin>
 )
 
