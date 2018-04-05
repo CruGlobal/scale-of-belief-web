@@ -20,8 +20,13 @@ const API_URL = process.env.REACT_APP_API_URL
  */
 const convertRESTRequestToHTTP = (type, resource, params) => {
   let url = ''
+  const sessionToken = sessionStorage.getItem('sessionToken')
   const options = {}
   options.headers = new Headers({ Accept: 'application/json' })
+  options.user = {
+    authenticated: true,
+    token: 'Bearer ' + sessionToken
+  }
 
   switch (type) {
     case GET_ONE: {
