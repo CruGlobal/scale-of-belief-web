@@ -1,10 +1,14 @@
-import React, { Component } from 'react'
-import authClient from './authClient'
+import React from 'react';
+import { Admin, Resource } from 'admin-on-rest';
+import authClient from './authClient';
+import loginPage from './loginPage';
 
-class App extends Component {
-  <Admin authClient={authClient}>
+require('dotenv').config();
 
+const App = () => (
+  <Admin authClient={authClient}
+         loginPage={loginPage}>
   </Admin>
-}
+);
 
 export default App
