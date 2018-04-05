@@ -80,7 +80,6 @@ export default (type, params) => {
         })
       }
       default: {
-        console.log('default');
         return Promise.reject('Unknown method')
       }
     }
