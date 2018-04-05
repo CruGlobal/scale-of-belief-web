@@ -1,4 +1,5 @@
 import { AUTH_LOGIN, AUTH_LOGOUT, AUTH_ERROR, AUTH_CHECK } from 'admin-on-rest'
+import * as jwt_decode from 'jwt-decode'
 
 export default (type, params) => {
     switch (type) {
@@ -25,7 +26,14 @@ export default (type, params) => {
       case AUTH_CHECK: {
         const sessionToken = sessionStorage.getItem('sessionToken');
         if(sessionToken){
-          return Promise.resolve();
+          const session = jwt_decode(sessionToken);
+          const isExpired = (new Date().getTime() / 1000) - session.exp >= 0;
+
+          if(!isExpired){
+            return Promise.resolve();
+          }
+
+          sessionStorage.removeItem('sessionToken');
         }
 
         const serviceUrl = process.env.REACT_APP_SERVICE_URL;
