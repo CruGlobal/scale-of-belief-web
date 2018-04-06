@@ -1,9 +1,22 @@
 import React from 'react'
-import { DisabledInput, TextInput, Edit, SimpleForm } from 'admin-on-rest'
+import { Show, SimpleShowLayout, TextField, DisabledInput, TextInput, Edit, SimpleForm } from 'admin-on-rest'
+
+export const ScoreShow = (props) => (
+  <Show title='Single Score' {...props}>
+    <SimpleShowLayout>
+      <TextField source='id' label='URI' />
+      <TextField source='score.unaware' label='Unaware' />
+      <TextField source='score.curious' label='Curious' />
+      <TextField source='score.follower' label='Follower' />
+      <TextField source='score.guide' label='Guide' />
+      <TextField source='score.confidence' label='Confidence' />
+    </SimpleShowLayout>
+  </Show>
+)
 
 export const ScoreEdit = (props) => (
   <Edit title='Edit Score' {...props}>
-    <SimpleForm>
+    <SimpleForm redirect='show'>
       <DisabledInput label = 'URI' source='id' />
       <TextInput label='Unaware' source='score.unaware' />
       <TextInput label='Curious' source='score.curious' />
