@@ -1,5 +1,6 @@
 import React from 'react'
 import { List, Datagrid, TextField, Filter, TextInput } from 'admin-on-rest'
+import EditScoreButton from './scores/EditScoreButton'
 
 const ScoresFilter = (props) => (
   <Filter {...props}>
@@ -16,6 +17,7 @@ export const ScoreList = (props) => (
             <TextField source='score.follower' label='Follower' />
             <TextField source='score.guide' label='Guide' />
             <TextField source='score.confidence' label='Confidence' />
+            <EditScoreButton />
         </Datagrid>
     </List>
 )

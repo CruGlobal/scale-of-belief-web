@@ -2,6 +2,7 @@ import {
     GET_ONE,
     GET_LIST,
     CREATE,
+    UPDATE,
     HttpError
 } from 'admin-on-rest'
 import { stringify } from 'query-string'
@@ -31,7 +32,7 @@ const convertRESTRequestToHTTP = (type, resource, params) => {
   switch (type) {
     case GET_ONE: {
       const query = {
-        uri: JSON.stringify(params.filter['q'])
+        uri: params.id
       }
       url = `${API_URL}/${resource}?${stringify(query)}`
       break
@@ -47,6 +48,17 @@ const convertRESTRequestToHTTP = (type, resource, params) => {
       url = `${API_URL}/${resource}`
       options.method = 'POST'
       options.body = JSON.stringify(params.data)
+      break
+    }
+    case UPDATE: {
+      url = `${API_URL}/${resource}`
+      options.method = 'POST'
+
+      let json = {
+        uri: params.data.id,
+        score: params.data.score
+      }
+      options.body = JSON.stringify(json)
       break
     }
     default: {
@@ -126,7 +138,7 @@ const convertHTTPResponseToREST = (response, type, resource, params) => {
     }
     default:
       const { json } = response
-      return { data: json }
+      return { data: { id: json.uri, score: json.score } }
   }
 }
 
