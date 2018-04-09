@@ -47,7 +47,12 @@ const convertRESTRequestToHTTP = (type, resource, params) => {
     case CREATE: {
       url = `${API_URL}/${resource}`
       options.method = 'POST'
-      options.body = JSON.stringify(params.data)
+
+      let json = {
+        uri: params.data.id,
+        score: params.data.score
+      }
+      options.body = JSON.stringify(json)
       break
     }
     case UPDATE: {

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Show, SimpleShowLayout, TextField, DisabledInput, TextInput, Edit, SimpleForm, RefreshButton, ShowButton, EditButton } from 'admin-on-rest'
+import { Show, SimpleShowLayout, TextField, DisabledInput, TextInput, Edit, SimpleForm, RefreshButton, ShowButton, EditButton, Create } from 'admin-on-rest'
 import { CardActions } from 'material-ui/Card'
 import ListScoresButton from './scores/ListScoresButton'
 
@@ -42,35 +42,35 @@ const validateScore = (record) => {
   }
 
   if (!score) {
-    errors.score = ['Score values are required']
+    errors.score = {unaware: ['Score values are required']}
     return errors
   }
 
-  if (score.unaware < 1 || score.unaware > 5) {
+  if (!score.unaware || score.unaware < 1 || score.unaware > 5) {
     if (!errors.score) {
       errors.score = {}
     }
     errors.score.unaware = ['Score must be between 1 and 5']
   }
-  if (score.curious < 1 || score.curious > 5) {
+  if (!score.curious || score.curious < 1 || score.curious > 5) {
     if (!errors.score) {
       errors.score = {}
     }
     errors.score.curious = ['Score must be between 1 and 5']
   }
-  if (score.follower < 1 || score.follower > 5) {
+  if (!score.follower || score.follower < 1 || score.follower > 5) {
     if (!errors.score) {
       errors.score = {}
     }
     errors.score.follower = ['Score must be between 1 and 5']
   }
-  if (score.guide < 1 || score.guide > 5) {
+  if (!score.guide || score.guide < 1 || score.guide > 5) {
     if (!errors.score) {
       errors.score = {}
     }
     errors.score.guide = ['Score must be between 1 and 5']
   }
-  if (score.confidence < 0 || score.confidence > 100) {
+  if (!score.confidence || score.confidence < 0 || score.confidence > 100) {
     if (!errors.score) {
       errors.score = {}
     }
@@ -91,4 +91,26 @@ export const ScoreEdit = (props) => (
       <TextInput label='Confidence' source='score.confidence' />
     </SimpleForm>
   </Edit>
+)
+
+const CreateScoreActions = ({ basePath, data }) => (
+  <CardActions>
+    <ShowButton basePath={basePath} record={data} />
+    <EditButton basePath={basePath} record={data} />
+    <ListScoresButton record={data} />
+    <RefreshButton />
+  </CardActions>
+)
+
+export const ScoreCreate = (props) => (
+  <Create title='Create Score' actions={<CreateScoreActions />} {...props}>
+    <SimpleForm redirect='show' validate={validateScore}>
+      <TextInput label = 'URI' source='id' />
+      <TextInput label='Unaware' source='score.unaware' />
+      <TextInput label='Curious' source='score.curious' />
+      <TextInput label='Follower' source='score.follower' />
+      <TextInput label='Guide' source='score.guide' />
+      <TextInput label='Confidence' source='score.confidence' />
+    </SimpleForm>
+  </Create>
 )

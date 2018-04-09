@@ -3,7 +3,7 @@ import { Admin, Resource } from 'admin-on-rest'
 import authClient from './authClient'
 import loginPage from './loginPage'
 import { ScoreList } from './scores'
-import { ScoreShow, ScoreEdit } from './score'
+import { ScoreShow, ScoreEdit, ScoreCreate } from './score'
 import restClient from './restClient'
 
 const App = () => (
@@ -11,7 +11,7 @@ const App = () => (
          loginPage={loginPage}
          restClient={restClient}>
       <Resource name='scores' list={ScoreList} />
-      <Resource name='score' show={ScoreShow} edit={ScoreEdit} />
+      <Resource name='score' show={ScoreShow} edit={ScoreEdit} create={ScoreCreate} />
   </Admin>
 )
 
