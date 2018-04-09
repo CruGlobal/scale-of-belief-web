@@ -5,6 +5,7 @@ import FlatButton from 'material-ui/FlatButton'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { push as pushAction } from 'react-router-redux'
+import ContentCreate from 'material-ui/svg-icons/content/create'
 
 class EditScoreButton extends Component {
   handleClick = () => {
@@ -20,7 +21,7 @@ class EditScoreButton extends Component {
   }
 
   render() {
-      return <FlatButton label="Edit" onClick={this.handleClick} />
+      return <FlatButton label="Edit" icon={<ContentCreate />} onClick={this.handleClick} />
   }
 }
 
