@@ -14,9 +14,57 @@ export const ScoreShow = (props) => (
   </Show>
 )
 
+const validateScore = (record) => {
+  const errors = {}
+
+  const score = record.score
+
+  if (!record.id) {
+    errors.id = ['URI is required']
+  }
+
+  if (!score) {
+    errors.score = ['Score values are required']
+    return errors
+  }
+
+  if (score.unaware < 1 || score.unaware > 5) {
+    if (!errors.score) {
+      errors.score = {}
+    }
+    errors.score.unaware = ['Score must be between 1 and 5']
+  }
+  if (score.curious < 1 || score.curious > 5) {
+    if (!errors.score) {
+      errors.score = {}
+    }
+    errors.score.curious = ['Score must be between 1 and 5']
+  }
+  if (score.follower < 1 || score.follower > 5) {
+    if (!errors.score) {
+      errors.score = {}
+    }
+    errors.score.follower = ['Score must be between 1 and 5']
+  }
+  if (score.guide < 1 || score.guide > 5) {
+    if (!errors.score) {
+      errors.score = {}
+    }
+    errors.score.guide = ['Score must be between 1 and 5']
+  }
+  if (score.confidence < 0 || score.confidence > 100) {
+    if (!errors.score) {
+      errors.score = {}
+    }
+    errors.score.confidence = ['Confidence must be between 0 and 100']
+  }
+
+  return errors
+}
+
 export const ScoreEdit = (props) => (
   <Edit title='Edit Score' {...props}>
-    <SimpleForm redirect='show'>
+    <SimpleForm redirect='show' validate={validateScore}>
       <DisabledInput label = 'URI' source='id' />
       <TextInput label='Unaware' source='score.unaware' />
       <TextInput label='Curious' source='score.curious' />
