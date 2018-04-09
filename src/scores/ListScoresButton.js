@@ -3,6 +3,7 @@ import FlatButton from 'material-ui/FlatButton'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { push as pushAction } from 'react-router-redux'
+import ActionList from 'material-ui/svg-icons/action/list'
 
 class ListScoresButton extends Component {
   handleClick = () => {
@@ -11,7 +12,7 @@ class ListScoresButton extends Component {
   }
 
   render() {
-      return <FlatButton label="List" onClick={this.handleClick} />
+      return <FlatButton label="List" icon={<ActionList />} onClick={this.handleClick} />
   }
 }
 
