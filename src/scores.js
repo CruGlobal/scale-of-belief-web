@@ -1,5 +1,7 @@
 import React from 'react'
-import { List, Datagrid, TextField, Filter, TextInput } from 'admin-on-rest'
+import { List, Datagrid, TextField, Filter, TextInput, CreateButton, RefreshButton } from 'admin-on-rest'
+import { CardActions } from 'material-ui/Card'
+import EditScoreButton from './scores/EditScoreButton'
 
 const ScoresFilter = (props) => (
   <Filter {...props}>
@@ -7,8 +9,16 @@ const ScoresFilter = (props) => (
   </Filter>
 )
 
+const ScoresActions = ({ resource, filters, displayedFilters, filterValues, basePath, showFilter }) => (
+  <CardActions>
+    {filters && React.cloneElement(filters, { resource, showFilter, displayedFilters, filterValues, context: 'button' }) }
+    <CreateButton basePath='score' />
+    <RefreshButton />
+  </CardActions>
+)
+
 export const ScoreList = (props) => (
-    <List title='Existing Scores' {...props} filters={<ScoresFilter />}>
+    <List title='Existing Scores' {...props} filters={<ScoresFilter />} actions={<ScoresActions />}>
         <Datagrid>
             <TextField source='id' label='URI' />
             <TextField source='score.unaware' label='Unaware' />
@@ -16,6 +26,7 @@ export const ScoreList = (props) => (
             <TextField source='score.follower' label='Follower' />
             <TextField source='score.guide' label='Guide' />
             <TextField source='score.confidence' label='Confidence' />
+            <EditScoreButton />
         </Datagrid>
     </List>
 )
