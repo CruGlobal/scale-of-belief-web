@@ -1,8 +1,18 @@
 import React from 'react'
-import { Show, SimpleShowLayout, TextField, DisabledInput, TextInput, Edit, SimpleForm } from 'admin-on-rest'
+import { Show, SimpleShowLayout, TextField, DisabledInput, TextInput, Edit, SimpleForm, RefreshButton, ShowButton, EditButton } from 'admin-on-rest'
+import { CardActions } from 'material-ui/Card'
+import ListScoresButton from './scores/ListScoresButton'
+
+const ShowScoreActions = ({ basePath, data }) => (
+  <CardActions>
+    <EditButton basePath={basePath} record={data} />
+    <ListScoresButton record={data} />
+    <RefreshButton />
+  </CardActions>
+)
 
 export const ScoreShow = (props) => (
-  <Show title='Single Score' {...props}>
+  <Show title='Single Score' actions={<ShowScoreActions />} {...props}>
     <SimpleShowLayout>
       <TextField source='id' label='URI' />
       <TextField source='score.unaware' label='Unaware' />
@@ -12,6 +22,14 @@ export const ScoreShow = (props) => (
       <TextField source='score.confidence' label='Confidence' />
     </SimpleShowLayout>
   </Show>
+)
+
+const EditScoreActions = ({ basePath, data }) => (
+  <CardActions>
+    <ShowButton basePath={basePath} record={data} />
+    <ListScoresButton record={data} />
+    <RefreshButton />
+  </CardActions>
 )
 
 const validateScore = (record) => {
@@ -63,7 +81,7 @@ const validateScore = (record) => {
 }
 
 export const ScoreEdit = (props) => (
-  <Edit title='Edit Score' {...props}>
+  <Edit title='Edit Score' actions={<EditScoreActions />} {...props}>
     <SimpleForm redirect='show' validate={validateScore}>
       <DisabledInput label = 'URI' source='id' />
       <TextInput label='Unaware' source='score.unaware' />
