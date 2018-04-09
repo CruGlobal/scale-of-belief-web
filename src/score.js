@@ -95,7 +95,7 @@ export const ScoreEdit = (props) => (
 
 const CreateScoreActions = ({ basePath, data }) => (
   <CardActions>
-    <ListScoresButton record={data} />
+    <ListScoresButton record={data || {id: 'https://cru.org'}} />
     <RefreshButton />
   </CardActions>
 )
