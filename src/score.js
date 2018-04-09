@@ -95,8 +95,6 @@ export const ScoreEdit = (props) => (
 
 const CreateScoreActions = ({ basePath, data }) => (
   <CardActions>
-    <ShowButton basePath={basePath} record={data} />
-    <EditButton basePath={basePath} record={data} />
     <ListScoresButton record={data} />
     <RefreshButton />
   </CardActions>
