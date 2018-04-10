@@ -8,7 +8,6 @@
 
 # production
 /build
-*.env
 
 # IntelliJ
 .idea
