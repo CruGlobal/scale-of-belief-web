@@ -1,7 +1,7 @@
 import React from 'react'
 import { List, Datagrid, TextField, Filter, TextInput, SelectField, CreateButton, RefreshButton } from 'admin-on-rest'
 import { CardActions } from 'material-ui/Card'
-import EditAPIUserButton from './apiUsers/EditAPIUserButton'
+import CustomEditButton from './customEditButton'
 
 const ApiUserActions = () => (
     <CardActions>
@@ -18,7 +18,7 @@ export const ApiUsersList = (props) => (
           <SelectField label='Type' source="user.type" choices={[
             { id: 'super', name: 'Super Admin' }
           ]} />
-          <EditAPIUserButton />
+          <CustomEditButton endpoint='api-user' />
         </Datagrid>
     </List>
 )

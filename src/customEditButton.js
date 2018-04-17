@@ -1,22 +1,21 @@
 import React, { Component } from 'react'
 import { GET_ONE } from 'admin-on-rest'
-import restClient from '../restClient'
+import restClient from './restClient'
 import FlatButton from 'material-ui/FlatButton'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { push as pushAction } from 'react-router-redux'
 import ContentCreate from 'material-ui/svg-icons/content/create'
 
-class EditScoreButton extends Component {
+class CustomEditButton extends Component {
   handleClick = () => {
-    const { record, push } = this.props
-    restClient(GET_ONE, 'score', { id: record.id })
+    const { record, push, endpoint } = this.props
+    restClient(GET_ONE, endpoint, { id: record.id })
       .then(() => {
-        push('/score/' + encodeURIComponent(record.id))
+        push('/' + endpoint + '/' + encodeURIComponent(record.id))
       })
       .catch((e) => {
           console.error(e)
-          push('/scores?filter={' + encodeURIComponent(record.id) + '}')
       })
   }
 
@@ -25,11 +24,12 @@ class EditScoreButton extends Component {
   }
 }
 
-EditScoreButton.propTypes = {
+CustomEditButton.propTypes = {
   push: PropTypes.func,
-  record: PropTypes.object
+  record: PropTypes.object,
+  endpoint: PropTypes.string
 }
 
 export default connect(null, {
   push: pushAction
-})(EditScoreButton)
+})(CustomEditButton)
