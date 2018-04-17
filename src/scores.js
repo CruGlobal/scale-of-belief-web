@@ -1,7 +1,7 @@
 import React from 'react'
 import { List, Datagrid, TextField, Filter, TextInput, CreateButton, RefreshButton } from 'admin-on-rest'
 import { CardActions } from 'material-ui/Card'
-import EditScoreButton from './scores/EditScoreButton'
+import CustomEditButton from './customEditButton'
 
 const ScoresFilter = (props) => (
   <Filter {...props}>
@@ -26,7 +26,7 @@ export const ScoreList = (props) => (
             <TextField source='score.follower' label='Follower' />
             <TextField source='score.guide' label='Guide' />
             <TextField source='score.confidence' label='Confidence' />
-            <EditScoreButton />
+            <CustomEditButton endpoint='score' />
         </Datagrid>
     </List>
 )
