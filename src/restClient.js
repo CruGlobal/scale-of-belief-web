@@ -32,7 +32,8 @@ const convertRESTRequestToHTTP = (type, resource, params) => {
   switch (type) {
     case GET_ONE: {
       const query = {
-        uri: params.id
+        uri: params.id,
+        guid: params.id
       }
       url = `${API_URL}/${resource}?${stringify(query)}`
       break
@@ -48,10 +49,21 @@ const convertRESTRequestToHTTP = (type, resource, params) => {
       url = `${API_URL}/${resource}`
       options.method = 'POST'
 
-      let json = {
-        uri: params.data.id,
-        score: params.data.score
+      let json
+      if(params.data.user){
+        json = {
+          guid: params.data.id,
+          contact_email: params.data.user.contact_email,
+          api_pattern: params.data.user.api_pattern,
+          type: params.data.user.type
+        }
+      }else if(params.data.score){
+        json = {
+          uri: params.data.id,
+          score: params.data.score
+        }
       }
+
       options.body = JSON.stringify(json)
       break
     }
@@ -59,10 +71,21 @@ const convertRESTRequestToHTTP = (type, resource, params) => {
       url = `${API_URL}/${resource}`
       options.method = 'POST'
 
-      let json = {
-        uri: params.data.id,
-        score: params.data.score
+      let json
+      if(params.data.user){
+        json = {
+          guid: params.data.id,
+          contact_email: params.data.user.contact_email,
+          api_pattern: params.data.user.api_pattern,
+          type: params.data.user.type
+        }
+      }else if(params.data.score){
+        json = {
+          uri: params.data.id,
+          score: params.data.score
+        }
       }
+
       options.body = JSON.stringify(json)
       break
     }
@@ -134,8 +157,9 @@ const convertHTTPResponseToREST = (response, type, resource, params) => {
       return {
         data: json.map((x) => {
           return {
-            id: x.uri,
-            score: x.score
+            id: x.uri || x.guid,
+            score: x.score,
+            user: x
           }
         }),
         total: json.length
@@ -143,7 +167,13 @@ const convertHTTPResponseToREST = (response, type, resource, params) => {
     }
     default:
       const { json } = response
-      return { data: { id: json.uri, score: json.score } }
+      return {
+        data: {
+          id: json.uri || json.guid,
+          score: json.score,
+          user: json
+        }
+      }
   }
 }
 
