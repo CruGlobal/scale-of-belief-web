@@ -1,5 +1,5 @@
 import React from 'react'
-import { Show, SimpleShowLayout, TextField, DisabledInput, TextInput, Edit, SimpleForm, RefreshButton, ShowButton, EditButton, Create } from 'admin-on-rest'
+import { Show, SimpleShowLayout, TextField, DisabledInput, TextInput, Edit, SimpleForm, RefreshButton, ShowButton, EditButton, Create, UrlField } from 'admin-on-rest'
 import { CardActions } from 'material-ui/Card'
 import ListScoresButton from './scores/ListScoresButton'
 
@@ -14,7 +14,7 @@ const ShowScoreActions = ({ basePath, data }) => (
 export const ScoreShow = (props) => (
   <Show title='Single Score' actions={<ShowScoreActions />} {...props}>
     <SimpleShowLayout>
-      <TextField source='id' label='URI' />
+      <UrlField source='id' label='URI' />
       <TextField source='score.unaware' label='Unaware' />
       <TextField source='score.curious' label='Curious' />
       <TextField source='score.follower' label='Follower' />

@@ -1,5 +1,5 @@
 import React from 'react'
-import { List, Datagrid, TextField, Filter, TextInput, SelectField, CreateButton, RefreshButton } from 'admin-on-rest'
+import { List, Datagrid, TextField, SelectField, CreateButton, RefreshButton } from 'admin-on-rest'
 import { CardActions } from 'material-ui/Card'
 import CustomEditButton from './customEditButton'
 

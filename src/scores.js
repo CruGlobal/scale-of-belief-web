@@ -1,5 +1,5 @@
 import React from 'react'
-import { List, Datagrid, TextField, Filter, TextInput, CreateButton, RefreshButton } from 'admin-on-rest'
+import { List, Datagrid, TextField, Filter, TextInput, CreateButton, RefreshButton, UrlField } from 'admin-on-rest'
 import { CardActions } from 'material-ui/Card'
 import CustomEditButton from './customEditButton'
 
@@ -20,7 +20,7 @@ const ScoresActions = ({ resource, filters, displayedFilters, filterValues, base
 export const ScoreList = (props) => (
     <List title='Existing Scores' {...props} filters={<ScoresFilter />} actions={<ScoresActions />}>
         <Datagrid>
-            <TextField source='id' label='URI' />
+            <UrlField source='id' label='URI' />
             <TextField source='score.unaware' label='Unaware' />
             <TextField source='score.curious' label='Curious' />
             <TextField source='score.follower' label='Follower' />
