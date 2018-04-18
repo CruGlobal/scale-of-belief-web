@@ -5,7 +5,7 @@ import CustomEditButton from './customEditButton'
 
 const ScoresFilter = (props) => (
   <Filter {...props}>
-      <TextInput label='Search' source='q' alwaysOn />
+      <TextInput label='Search' source='q' type='url' defaultValue='http://example.com' alwaysOn />
   </Filter>
 )
 

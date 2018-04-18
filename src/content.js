@@ -3,7 +3,7 @@ import { List, Datagrid, UrlField, TextInput, Filter } from 'admin-on-rest'
 
 const ContentFilter = (props) => (
   <Filter {...props}>
-      <TextInput label='Search' source='q' alwaysOn />
+      <TextInput label='Search' source='q' defaultValue='http://example.com' alwaysOn />
   </Filter>
 )
 
