@@ -7,7 +7,7 @@ export const ApiUserShow = (props) => (
       <TextField source='id' label='GUID' />
       <TextField source='user.contact_email' label='Email' />
       <FunctionField label='API Pattern' render={record => `${record.user.api_pattern}`} />
-      <SelectField label='Type' source="user.type" choices={[
+      <SelectField label='Type' source='user.type' choices={[
         { id: '', name: 'Normal User' },
         { id: 'super', name: 'Super Admin' }
       ]} />
@@ -21,7 +21,7 @@ export const ApiUserEdit = (props) => (
       <DisabledInput label = 'GUID' source='id' />
       <TextInput label='Email' source='user.contact_email' validate={[required, email]} />
       <SelectArrayInput label='API Pattern' source='user.api_pattern' />
-      <SelectInput label='Type' source="user.type" choices={[
+      <SelectInput label='Type' source='user.type' choices={[
         { id: '', name: 'Normal User' },
         { id: 'super', name: 'Super Admin' },
       ]} />
@@ -37,7 +37,7 @@ export const ApiUserCreate = (props) => (
       <TextInput label = 'GUID' source='id' validate={[required, guidValidate]} />
       <TextInput label='Email' source='user.contact_email' validate={[required, email]}  />
       <SelectArrayInput label='API Pattern' source='user.api_pattern' />
-      <SelectInput label='Type' source="user.type" choices={[
+      <SelectInput label='Type' source='user.type' choices={[
         { id: '', name: 'Normal User' },
         { id: 'super', name: 'Super Admin' },
       ]} />
