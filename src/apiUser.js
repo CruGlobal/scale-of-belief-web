@@ -1,6 +1,5 @@
 import React from 'react'
-import { Show, SimpleShowLayout, TextField, DisabledInput, TextInput, Edit, SimpleForm, RefreshButton, ShowButton, EditButton, Create, SelectInput, SelectArrayInput, FunctionField, SelectField, required, email, regex } from 'admin-on-rest'
-import { CardActions } from 'material-ui/Card'
+import { Show, SimpleShowLayout, TextField, DisabledInput, TextInput, Edit, SimpleForm, Create, SelectInput, SelectArrayInput, FunctionField, SelectField, required, email, regex } from 'admin-on-rest'
 
 export const ApiUserShow = (props) => (
   <Show title='API User' {...props}>
