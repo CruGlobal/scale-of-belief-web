@@ -39,6 +39,10 @@ const convertRESTRequestToHTTP = (type, resource, params) => {
       break
     }
     case GET_LIST: {
+      if (!params.filter['q'] && resource !== 'api-users') {
+        // short-circuit
+        return {}
+      }
       const query = {
         uri: JSON.stringify(params.filter['q'])
       }
@@ -170,6 +174,10 @@ const convertHTTPResponseToREST = (response, type, resource, params) => {
  */
 export default (type, resource, params) => {
   const { url, options } = convertRESTRequestToHTTP(type, resource, params)
+
+  if (!url) {
+    return Promise.resolve({ data: [], total: 0 })
+  }
   return fetchJson(url, options)
     .then(response => convertHTTPResponseToREST(response, type, resource, params))
 }
