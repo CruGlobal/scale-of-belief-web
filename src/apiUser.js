@@ -1,12 +1,13 @@
 import React from 'react'
-import { Show, SimpleShowLayout, TextField, DisabledInput, TextInput, Edit, SimpleForm, Create, SelectInput, SelectArrayInput, FunctionField, SelectField, required, email, regex } from 'admin-on-rest'
+import { Show, SimpleShowLayout, TextField, DisabledInput, TextInput, Edit, SimpleForm, Create, SelectInput, SelectArrayInput, SelectField, required, email, regex } from 'admin-on-rest'
+import ChipArrayField from './chipArray'
 
 export const ApiUserShow = (props) => (
   <Show title='API User' {...props}>
     <SimpleShowLayout>
       <TextField source='id' label='GUID' />
       <TextField source='user.contact_email' label='Email' />
-      <FunctionField label='API Pattern' render={record => `${record.user.api_pattern}`} />
+      <ChipArrayField source='user.api_pattern' record='user.api_pattern' label='API Pattern' />
       <SelectField label='Type' source='user.type' choices={[
         { id: '', name: 'Normal User' },
         { id: 'super', name: 'Super Admin' }
