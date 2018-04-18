@@ -1,5 +1,5 @@
 import React from 'react'
-import { List, Datagrid, TextField, TextInput, Filter } from 'admin-on-rest'
+import { List, Datagrid, UrlField, TextInput, Filter } from 'admin-on-rest'
 
 const ContentFilter = (props) => (
   <Filter {...props}>
@@ -10,7 +10,7 @@ const ContentFilter = (props) => (
 export const ContentList = (props) => (
     <List title='Content Without Scores' {...props} filters={<ContentFilter />}>
         <Datagrid>
-            <TextField source='id' label='URI' />
+            <UrlField source='id' label='URI' />
         </Datagrid>
     </List>
 )
