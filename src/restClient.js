@@ -135,6 +135,12 @@ const convertHTTPResponseToREST = (response, type, resource, params) => {
       const { json } = response
       return {
         data: json.map((x) => {
+          // This is the case for /content which brings back an array of strings
+          if (typeof x === 'string') {
+            return {
+              id: x
+            }
+          }
           return {
             id: x.uri || x.guid,
             score: x.score,
