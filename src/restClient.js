@@ -1,10 +1,11 @@
+/* global sessionStorage, fetch, FormData, Headers */
 import {
   GET_ONE,
   GET_LIST,
   CREATE,
-  UPDATE,
-  HttpError
+  UPDATE
 } from 'admin-on-rest'
+import HttpError from 'admin-on-rest/src/util/HttpError'
 import { stringify } from 'query-string'
 const _extends2 = require('babel-runtime/helpers/extends')
 const _extends3 = _interopRequireDefault(_extends2)
@@ -101,10 +102,10 @@ const fetchJson = (url, options) => {
       }
     })
   }).then(function (_ref) {
-    var status = _ref.status,
-      statusText = _ref.statusText,
-      headers = _ref.headers,
-      body = _ref.body
+    let status = _ref.status
+    let statusText = _ref.statusText
+    let headers = _ref.headers
+    let body = _ref.body
 
     var json = void 0
     try {
@@ -113,7 +114,7 @@ const fetchJson = (url, options) => {
       // not json, no big deal
     }
     if (status !== 404 && (status < 200 || status >= 300)) {
-      return Promise.reject(new HttpError.default(json && (json.message || statusText), status, json))
+      return Promise.reject(new HttpError((json && json.message) || statusText, status, json))
     }
     return { status: status, headers: headers, body: body, json: json }
   })

@@ -1,5 +1,7 @@
+/* global sessionStorage, fetch, Request, Headers */
 import { AUTH_LOGIN, AUTH_LOGOUT, AUTH_ERROR, AUTH_CHECK } from 'admin-on-rest'
-import * as jwt_decode from 'jwt-decode'
+import HttpError from 'admin-on-rest/src/util/HttpError'
+import * as jwtDecode from 'jwt-decode'
 
 export default (type, params) => {
   switch (type) {
@@ -19,14 +21,14 @@ export default (type, params) => {
     case AUTH_ERROR: {
       const status = params.message.status
       if (status === 401 || status === 403) {
-        return Promise.reject({})
+        return Promise.reject(new HttpError(params.message.message, params.message.status, params.message))
       }
       return Promise.resolve()
     }
     case AUTH_CHECK: {
       const sessionToken = sessionStorage.getItem('sessionToken')
       if (sessionToken) {
-        const session = jwt_decode(sessionToken)
+        const session = jwtDecode(sessionToken)
         const isExpired = (new Date().getTime() / 1000) - session.exp >= 0
 
         if (!isExpired) {
@@ -47,7 +49,11 @@ export default (type, params) => {
               '&redirect_uri=' + encodeURIComponent(window.location.origin) +
               '&scope=fullticket'
 
-        return Promise.reject({})
+        let json = {
+          status: 401,
+          message: 'Unauthorized'
+        }
+        return Promise.reject(new HttpError(json.message, json.status, json))
       }
 
       sessionStorage.removeItem('accessToken')
@@ -86,7 +92,11 @@ export default (type, params) => {
       })
     }
     default: {
-      return Promise.reject('Unknown method')
+      let json = {
+        status: 500,
+        message: 'Unknown method'
+      }
+      return Promise.reject(new HttpError(json.message, json.status, json))
     }
   }
 }
