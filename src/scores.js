@@ -5,7 +5,7 @@ import CustomEditButton from './customEditButton'
 
 const ScoresFilter = (props) => (
   <Filter {...props}>
-      <TextInput label='Search' source='q' type='url' defaultValue='http://example.com' alwaysOn />
+    <TextInput label='Search' source='q' type='url' defaultValue='http://example.com' alwaysOn />
   </Filter>
 )
 
@@ -18,15 +18,15 @@ const ScoresActions = ({ resource, filters, displayedFilters, filterValues, base
 )
 
 export const ScoreList = (props) => (
-    <List title='Existing Scores' {...props} filters={<ScoresFilter />} actions={<ScoresActions />}>
-        <Datagrid>
-            <UrlField source='id' label='URI' />
-            <TextField source='score.unaware' label='Unaware' />
-            <TextField source='score.curious' label='Curious' />
-            <TextField source='score.follower' label='Follower' />
-            <TextField source='score.guide' label='Guide' />
-            <TextField source='score.confidence' label='Confidence' />
-            <CustomEditButton endpoint='score' />
-        </Datagrid>
-    </List>
+  <List title='Existing Scores' {...props} filters={<ScoresFilter />} actions={<ScoresActions />}>
+    <Datagrid>
+      <UrlField source='id' label='URI' />
+      <TextField source='score.unaware' label='Unaware' />
+      <TextField source='score.curious' label='Curious' />
+      <TextField source='score.follower' label='Follower' />
+      <TextField source='score.guide' label='Guide' />
+      <TextField source='score.confidence' label='Confidence' />
+      <CustomEditButton endpoint='score' />
+    </Datagrid>
+  </List>
 )

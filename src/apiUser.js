@@ -19,12 +19,12 @@ export const ApiUserShow = (props) => (
 export const ApiUserEdit = (props) => (
   <Edit title='Edit API User' {...props}>
     <SimpleForm redirect='show'>
-      <DisabledInput label = 'GUID' source='id' />
+      <DisabledInput label='GUID' source='id' />
       <TextInput label='Email' source='user.contact_email' validate={[required, email]} />
       <SelectArrayInput label='API Pattern' source='user.api_pattern' />
       <SelectInput label='Type' source='user.type' choices={[
         { id: '', name: 'Normal User' },
-        { id: 'super', name: 'Super Admin' },
+        { id: 'super', name: 'Super Admin' }
       ]} />
     </SimpleForm>
   </Edit>
@@ -35,12 +35,12 @@ const guidValidate = regex(/^(\{{0,1}([0-9a-fA-F]){8}-([0-9a-fA-F]){4}-([0-9a-fA
 export const ApiUserCreate = (props) => (
   <Create title='Create API User' {...props}>
     <SimpleForm redirect='show'>
-      <TextInput label = 'GUID' source='id' validate={[required, guidValidate]} />
-      <TextInput label='Email' source='user.contact_email' validate={[required, email]}  />
+      <TextInput label='GUID' source='id' validate={[required, guidValidate]} />
+      <TextInput label='Email' source='user.contact_email' validate={[required, email]} />
       <SelectArrayInput label='API Pattern' source='user.api_pattern' />
       <SelectInput label='Type' source='user.type' choices={[
         { id: '', name: 'Normal User' },
-        { id: 'super', name: 'Super Admin' },
+        { id: 'super', name: 'Super Admin' }
       ]} />
     </SimpleForm>
   </Create>

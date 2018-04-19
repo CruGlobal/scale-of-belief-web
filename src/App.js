@@ -11,13 +11,13 @@ import restClient from './restClient'
 
 const App = () => (
   <Admin authClient={authClient}
-         loginPage={loginPage}
-         restClient={restClient}>
-      <Resource name='scores' list={ScoreList} />
-      <Resource name='score' show={ScoreShow} edit={ScoreEdit} create={ScoreCreate} />
-      <Resource name='content' list={ContentList} options={{ label: 'Content' }} />
-      <Resource name='api-users' list={ApiUsersList} options={{ label: 'API Users' }} />
-      <Resource name='api-user' show={ApiUserShow} edit={ApiUserEdit} create={ApiUserCreate} />
+    loginPage={loginPage}
+    restClient={restClient}>
+    <Resource name='scores' list={ScoreList} />
+    <Resource name='score' show={ScoreShow} edit={ScoreEdit} create={ScoreCreate} />
+    <Resource name='content' list={ContentList} options={{ label: 'Content' }} />
+    <Resource name='api-users' list={ApiUsersList} options={{ label: 'API Users' }} />
+    <Resource name='api-user' show={ApiUserShow} edit={ApiUserEdit} create={ApiUserCreate} />
   </Admin>
 )
 

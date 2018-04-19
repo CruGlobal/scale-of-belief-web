@@ -83,7 +83,7 @@ const validateScore = (record) => {
 export const ScoreEdit = (props) => (
   <Edit title='Edit Score' actions={<EditScoreActions />} {...props}>
     <SimpleForm redirect='show' validate={validateScore}>
-      <DisabledInput label = 'URI' source='id' />
+      <DisabledInput label='URI' source='id' />
       <TextInput label='Unaware' source='score.unaware' />
       <TextInput label='Curious' source='score.curious' />
       <TextInput label='Follower' source='score.follower' />
@@ -103,7 +103,7 @@ const CreateScoreActions = ({ basePath, data }) => (
 export const ScoreCreate = (props) => (
   <Create title='Create Score' actions={<CreateScoreActions />} {...props}>
     <SimpleForm redirect='show' validate={validateScore}>
-      <TextInput label = 'URI' source='id' />
+      <TextInput label='URI' source='id' />
       <TextInput label='Unaware' source='score.unaware' />
       <TextInput label='Curious' source='score.curious' />
       <TextInput label='Follower' source='score.follower' />
