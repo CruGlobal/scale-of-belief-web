@@ -1,7 +1,6 @@
 language: node_js
+node_js: "lts/*"
 sudo: required
-node_js:
-  - 'lts/*'
 env:
   global:
     - AWS_KEY=AKIAI6NXUHQB5LIANF6A
