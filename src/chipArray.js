@@ -7,18 +7,17 @@ import get from 'lodash.get'
  * Render multiple Chips from an array of values. Modified from http://www.material-ui.com/#/components/chip
  */
 class ChipArray extends React.Component {
-
-  constructor(props) {
+  constructor (props) {
     super(props)
     this.state = this.transformData(get(props.record, props.source))
     this.styles = {
       chip: {
-        margin: 4,
+        margin: 4
       },
       wrapper: {
         display: 'flex',
-        flexWrap: 'wrap',
-      },
+        flexWrap: 'wrap'
+      }
     }
   }
 
@@ -27,7 +26,7 @@ class ChipArray extends React.Component {
     let transformedArray = []
 
     for (let i = 0; i < original.length; i++) {
-      transformedArray.push( { key: i, label: original[i] } )
+      transformedArray.push({ key: i, label: original[i] })
     }
 
     transformed.chipData = transformedArray
@@ -35,7 +34,7 @@ class ChipArray extends React.Component {
     return transformed
   }
 
-  renderChip(data) {
+  renderChip (data) {
     return (
       <Chip
         key={data.key}
@@ -46,7 +45,7 @@ class ChipArray extends React.Component {
     )
   }
 
-  render() {
+  render () {
     return (
       <div style={this.styles.wrapper}>
         {this.state.chipData.map(this.renderChip, this)}
@@ -56,7 +55,6 @@ class ChipArray extends React.Component {
 }
 
 const ChipArrayField = ({ source, record = {} }) => new ChipArray({record: record, source: source}).render()
-
 
 ChipArrayField.propTypes = {
   source: PropTypes.string.isRequired,

@@ -11,8 +11,8 @@ class ListScoresButton extends Component {
     push('/scores?filter=' + encodeURIComponent('{"q":"' + record.id + '"}'))
   }
 
-  render() {
-      return <FlatButton label="List" icon={<ActionList />} onClick={this.handleClick} />
+  render () {
+    return <FlatButton label='List' icon={<ActionList />} onClick={this.handleClick} />
   }
 }
 

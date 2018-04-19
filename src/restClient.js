@@ -1,15 +1,16 @@
+/* global sessionStorage, fetch, FormData, Headers */
 import {
-    GET_ONE,
-    GET_LIST,
-    CREATE,
-    UPDATE,
-    HttpError
+  GET_ONE,
+  GET_LIST,
+  CREATE,
+  UPDATE
 } from 'admin-on-rest'
+import HttpError from 'admin-on-rest/src/util/HttpError'
 import { stringify } from 'query-string'
 const _extends2 = require('babel-runtime/helpers/extends')
 const _extends3 = _interopRequireDefault(_extends2)
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj } }
+function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
 
 const API_URL = process.env.REACT_APP_API_URL
 
@@ -55,14 +56,14 @@ const convertRESTRequestToHTTP = (type, resource, params) => {
       options.method = 'POST'
 
       let json
-      if(params.data.user){
+      if (params.data.user) {
         json = {
           guid: params.data.id,
           contact_email: params.data.user.contact_email,
           api_pattern: params.data.user.api_pattern,
           type: params.data.user.type
         }
-      }else if(params.data.score){
+      } else if (params.data.score) {
         json = {
           uri: params.data.id,
           score: params.data.score
@@ -75,7 +76,6 @@ const convertRESTRequestToHTTP = (type, resource, params) => {
     default: {
       throw new Error(`Unsupported fetch action type ${type}`)
     }
-
   }
   return { url, options }
 }
@@ -102,21 +102,21 @@ const fetchJson = (url, options) => {
       }
     })
   }).then(function (_ref) {
-      var status = _ref.status,
-          statusText = _ref.statusText,
-          headers = _ref.headers,
-          body = _ref.body
+    let status = _ref.status
+    let statusText = _ref.statusText
+    let headers = _ref.headers
+    let body = _ref.body
 
-      var json = void 0
-      try {
-        json = JSON.parse(body)
-      } catch (e) {
-        // not json, no big deal
-      }
-      if (status !== 404 && (status < 200 || status >= 300)) {
-        return Promise.reject(new HttpError.default(json && (json.message || statusText), status, json))
-      }
-      return { status: status, headers: headers, body: body, json: json }
+    var json = void 0
+    try {
+      json = JSON.parse(body)
+    } catch (e) {
+      // not json, no big deal
+    }
+    if (status !== 404 && (status < 200 || status >= 300)) {
+      return Promise.reject(new HttpError((json && json.message) || statusText, status, json))
+    }
+    return { status: status, headers: headers, body: body, json: json }
   })
 }
 

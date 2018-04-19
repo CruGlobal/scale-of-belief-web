@@ -15,12 +15,12 @@ class CustomEditButton extends Component {
         push('/' + endpoint + '/' + encodeURIComponent(record.id))
       })
       .catch((e) => {
-          console.error(e)
+        console.error(e)
       })
   }
 
-  render() {
-      return <FlatButton label="Edit" icon={<ContentCreate />} onClick={this.handleClick} />
+  render () {
+    return <FlatButton label='Edit' icon={<ContentCreate />} onClick={this.handleClick} />
   }
 }
 
