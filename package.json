@@ -12,10 +12,15 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint": "standard || exit 0",
+    "lint:fix": "standard --fix || exit 0"
   },
   "devDependencies": {
-    "ajv": "^6.4.0",
-    "react-scripts": "^1.1.4"
+    "ajv": "^5.5.2",
+    "eslint": "^4.19.1",
+    "eslint-plugin-react": "^7.7.0",
+    "react-scripts": "^1.1.4",
+    "standard": "^11.0.1"
   }
 }
