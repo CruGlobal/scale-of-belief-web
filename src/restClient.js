@@ -5,7 +5,7 @@ import {
   CREATE,
   UPDATE
 } from 'admin-on-rest'
-import HttpError from 'admin-on-rest/src/util/HttpError'
+import HttpError from './HttpError'
 import { stringify } from 'query-string'
 const _extends2 = require('babel-runtime/helpers/extends')
 const _extends3 = _interopRequireDefault(_extends2)
