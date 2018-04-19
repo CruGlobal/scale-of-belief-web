@@ -23,5 +23,6 @@ deploy:
     local_dir: build
     acl: public_read
     cache_control: "max-age=300"
+    skip_cleanup: true
     on:
       all_branches: true
