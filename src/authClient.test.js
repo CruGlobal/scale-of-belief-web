@@ -103,8 +103,6 @@ describe('Auth Check', () => {
     })
   }
 
-  global.fetch = jest.fn()
-
   it('should use the existing session token if it is still valid', done => {
     sessionStorage.getItem.mockReturnValueOnce(futureJwt)
 

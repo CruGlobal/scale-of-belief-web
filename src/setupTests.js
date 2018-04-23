@@ -12,3 +12,5 @@ Object.defineProperty(window.location, 'href', {
   writable: true,
   value: 'some url'
 })
+
+global.fetch = jest.fn()
