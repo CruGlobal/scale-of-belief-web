@@ -46,3 +46,15 @@ From the project folder.
 ~$ ./build.sh
 ```
 This will build and deploy the web application to the s3 bucket defined in blackbox.
+
+## Testing
+
+Scale of Belief is using [Standard](https://standardjs.com/) style and [jest](https://facebook.github.io/jest/docs/en/getting-started.html) for testing.
+```bash
+# Run lint, optionally auto fix issues
+npm run lint
+npm run lint:fix
+
+# Run tests
+npm test
+```
