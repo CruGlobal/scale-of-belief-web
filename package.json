@@ -11,7 +11,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
+    "test": "react-scripts test --env=jsdom --coverage",
     "eject": "react-scripts eject",
     "lint": "standard | snazzy || exit 0",
     "lint:fix": "standard --fix | snazzy || exit 0"
@@ -30,5 +30,15 @@
     "env": {
       "jest": true
     }
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "src/*.js",
+      "src/scores/*.js",
+      "!src/registerServiceWorker.js",
+      "!src/HttpError.js",
+      "!src/setupTests.js",
+      "!src/*.test.js"
+    ]
   }
 }

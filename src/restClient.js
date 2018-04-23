@@ -1,16 +1,12 @@
-/* global sessionStorage, fetch, FormData, Headers */
+/* global sessionStorage, Headers */
 import {
   GET_ONE,
   GET_LIST,
   CREATE,
-  UPDATE
+  UPDATE,
+  fetchUtils
 } from 'admin-on-rest'
-import HttpError from 'admin-on-rest/src/util/HttpError'
 import { stringify } from 'query-string'
-const _extends2 = require('babel-runtime/helpers/extends')
-const _extends3 = _interopRequireDefault(_extends2)
-
-function _interopRequireDefault (obj) { return obj && obj.__esModule ? obj : { default: obj } }
 
 const API_URL = process.env.REACT_APP_API_URL
 
@@ -80,46 +76,6 @@ const convertRESTRequestToHTTP = (type, resource, params) => {
   return { url, options }
 }
 
-// This is the same as the fetchUtils fetchJson except for how it handles 404 errors
-const fetchJson = (url, options) => {
-  var requestHeaders = options.headers || new Headers({
-    Accept: 'application/json'
-  })
-  if (!requestHeaders.has('Content-Type') && !(options && options.body && options.body instanceof FormData)) {
-    requestHeaders.set('Content-Type', 'application/json')
-  }
-  if (options.user && options.user.authenticated && options.user.token) {
-    requestHeaders.set('Authorization', options.user.token)
-  }
-
-  return fetch(url, (0, _extends3.default)({}, options, { headers: requestHeaders })).then(function (response) {
-    return response.text().then(function (text) {
-      return {
-        status: response.status,
-        statusText: response.statusText,
-        headers: response.headers,
-        body: text
-      }
-    })
-  }).then(function (_ref) {
-    let status = _ref.status
-    let statusText = _ref.statusText
-    let headers = _ref.headers
-    let body = _ref.body
-
-    var json = void 0
-    try {
-      json = JSON.parse(body)
-    } catch (e) {
-      // not json, no big deal
-    }
-    if (status !== 404 && (status < 200 || status >= 300)) {
-      return Promise.reject(new HttpError((json && json.message) || statusText, status, json))
-    }
-    return { status: status, headers: headers, body: body, json: json }
-  })
-}
-
 /**
  * @param {Object} response HTTP response from fetch()
  * @param {String} type One of the constants appearing at the top if this file, e.g. 'UPDATE'
@@ -174,6 +130,7 @@ const convertHTTPResponseToREST = (response, type, resource, params) => {
  */
 export default (type, resource, params) => {
   const { url, options } = convertRESTRequestToHTTP(type, resource, params)
+  const { fetchJson } = fetchUtils
 
   if (!url) {
     return Promise.resolve({ data: [], total: 0 })

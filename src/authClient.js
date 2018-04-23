@@ -1,7 +1,7 @@
 /* global sessionStorage, fetch, Request, Headers */
 import { AUTH_LOGIN, AUTH_LOGOUT, AUTH_ERROR, AUTH_CHECK } from 'admin-on-rest'
-import HttpError from 'admin-on-rest/src/util/HttpError'
-import * as jwtDecode from 'jwt-decode'
+import HttpError from './HttpError'
+import jwtDecode from 'jwt-decode'
 
 export default (type, params) => {
   switch (type) {
