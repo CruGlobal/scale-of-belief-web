@@ -52,17 +52,17 @@ const convertRESTRequestToHTTP = (type, resource, params) => {
       options.method = 'POST'
 
       let json
-      if (params.data.user) {
+      if (params.data.score) {
+        json = {
+          uri: params.data.id,
+          score: params.data.score
+        }
+      } else if (params.data.user) {
         json = {
           guid: params.data.id,
           contact_email: params.data.user.contact_email,
           api_pattern: params.data.user.api_pattern,
           type: params.data.user.type
-        }
-      } else if (params.data.score) {
-        json = {
-          uri: params.data.id,
-          score: params.data.score
         }
       }
 
