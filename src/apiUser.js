@@ -22,7 +22,7 @@ export const ApiUserEdit = (props) => (
       <DisabledInput label='GUID' source='id' />
       <TextInput label='Email' source='user.contact_email' validate={[required, email]} />
       <SelectArrayInput label='API Pattern' source='user.api_pattern' />
-      <SelectInput label='Type' source='user.type' choices={[
+      <SelectInput label='' source='user.type' choices={[
         { id: '', name: 'Normal User' },
         { id: 'super', name: 'Super Admin' }
       ]} />
@@ -38,7 +38,7 @@ export const ApiUserCreate = (props) => (
       <TextInput label='GUID' source='id' validate={[required, guidValidate]} parse={v => v.toLowerCase()} />
       <TextInput label='Email' source='user.contact_email' validate={[required, email]} />
       <SelectArrayInput label='API Pattern' source='user.api_pattern' />
-      <SelectInput label='Type' source='user.type' choices={[
+      <SelectInput label='' source='user.type' choices={[
         { id: '', name: 'Normal User' },
         { id: 'super', name: 'Super Admin' }
       ]} />
