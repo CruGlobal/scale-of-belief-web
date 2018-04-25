@@ -10,7 +10,9 @@ import { ApiUserShow, ApiUserEdit, ApiUserCreate } from './apiUser'
 import restClient from './restClient'
 
 const App = () => (
-  <Admin authClient={authClient}
+  <Admin
+    title='Scale of Belief'
+    authClient={authClient}
     loginPage={loginPage}
     restClient={restClient}>
     <Resource name='scores' list={ScoreList} />
