@@ -43,7 +43,7 @@ ecs_config$ cd -
 From the project folder.
 
 ```bash
-~$ ./build.sh
+~$ ./deploy.sh
 ```
 This will build and deploy the web application to the s3 bucket defined in blackbox.
 
