@@ -2,6 +2,8 @@ import React from 'react'
 import { Show, SimpleShowLayout, TextField, DisabledInput, TextInput, Edit, SimpleForm, RefreshButton, ShowButton, EditButton, Create, UrlField, RadioButtonGroupInput, SelectField } from 'admin-on-rest'
 import { CardActions } from 'material-ui/Card'
 import ListScoresButton from './scores/ListScoresButton'
+import ReactTooltip from 'react-tooltip'
+import TooltipTextInput from './TooltipTextInput'
 
 const ShowScoreActions = ({ basePath, data }) => (
   <CardActions>
@@ -112,7 +114,15 @@ const CreateScoreActions = ({ basePath, data }) => (
 export const ScoreCreate = (props) => (
   <Create title='Create Score' actions={<CreateScoreActions />} {...props}>
     <SimpleForm redirect='show' validate={validateScore}>
-      <TextInput label='URI' source='id' />
+      <TooltipTextInput label='URI' source='id' />
+      <ReactTooltip place='right' type='info' delayHide={1000} effect='solid'>
+        <p>
+          Events are identified in our system by their URI. For Web Pages, the URI is simply the full URL.<br />
+          URIs for other types of products may need to be defined by the Growth Solutions Team.<br />
+          If you are unsure about the structure of the URI for your event please contact the
+          Growth Solutions Team at <a href='mailto:dps-growthsolutions@cru.org'>dps-growthsolutions@cru.org</a>.
+        </p>
+      </ReactTooltip>
       <RadioButtonGroupInput label='How interested would Content people be in this event?' source='score.unaware' choices={scoreChoices} />
       <RadioButtonGroupInput label='How interested would Curious people be in this event?' source='score.curious' choices={scoreChoices} />
       <RadioButtonGroupInput label='How interested would Followers be in this event?' source='score.follower' choices={scoreChoices} />

@@ -3,3 +3,7 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
+
+.__react_component_tooltip {
+  pointer-events: auto !important;
+}

@@ -4,9 +4,10 @@
   "private": true,
   "dependencies": {
     "admin-on-rest": "^1.4.0",
+    "jwt-decode": "^2.2.0",
     "react": "^15.6.2",
     "react-dom": "^15.6.2",
-    "jwt-decode": "^2.2.0"
+    "react-tooltip": "^3.5.1"
   },
   "scripts": {
     "start": "react-scripts start",
