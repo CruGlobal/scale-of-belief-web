@@ -24,7 +24,7 @@ export const ScoreShow = (props) => (
   <Show title='Single Score' actions={<ShowScoreActions />} {...props}>
     <SimpleShowLayout>
       <UrlField source='id' label='URI' />
-      <SelectField label='Unaware' source='score.unaware' choices={scoreChoices} />
+      <SelectField label='Content' source='score.unaware' choices={scoreChoices} />
       <SelectField label='Curious' source='score.curious' choices={scoreChoices} />
       <SelectField label='Follower' source='score.follower' choices={scoreChoices} />
       <SelectField label='Guide' source='score.guide' choices={scoreChoices} />
@@ -93,7 +93,7 @@ export const ScoreEdit = (props) => (
   <Edit title='Edit Score' actions={<EditScoreActions />} {...props}>
     <SimpleForm redirect='show' validate={validateScore}>
       <DisabledInput label='URI' source='id' />
-      <RadioButtonGroupInput label='How interested would Unaware people be in this event?' source='score.unaware' choices={scoreChoices} />
+      <RadioButtonGroupInput label='How interested would Content people be in this event?' source='score.unaware' choices={scoreChoices} />
       <RadioButtonGroupInput label='How interested would Curious people be in this event?' source='score.curious' choices={scoreChoices} />
       <RadioButtonGroupInput label='How interested would Followers be in this event?' source='score.follower' choices={scoreChoices} />
       <RadioButtonGroupInput label='How interested would Guides be in this event?' source='score.guide' choices={scoreChoices} />
@@ -113,7 +113,7 @@ export const ScoreCreate = (props) => (
   <Create title='Create Score' actions={<CreateScoreActions />} {...props}>
     <SimpleForm redirect='show' validate={validateScore}>
       <TextInput label='URI' source='id' />
-      <RadioButtonGroupInput label='How interested would Unaware people be in this event?' source='score.unaware' choices={scoreChoices} />
+      <RadioButtonGroupInput label='How interested would Content people be in this event?' source='score.unaware' choices={scoreChoices} />
       <RadioButtonGroupInput label='How interested would Curious people be in this event?' source='score.curious' choices={scoreChoices} />
       <RadioButtonGroupInput label='How interested would Followers be in this event?' source='score.follower' choices={scoreChoices} />
       <RadioButtonGroupInput label='How interested would Guides be in this event?' source='score.guide' choices={scoreChoices} />
