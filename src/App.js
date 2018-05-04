@@ -8,13 +8,15 @@ import { ScoreShow, ScoreEdit, ScoreCreate } from './score'
 import { ContentList } from './content'
 import { ApiUserShow, ApiUserEdit, ApiUserCreate } from './apiUser'
 import restClient from './restClient'
+import Dashboard from './dashboard'
 
 const App = () => (
   <Admin
     title='Scale of Belief'
     authClient={authClient}
     loginPage={loginPage}
-    restClient={restClient}>
+    restClient={restClient}
+    dashboard={Dashboard}>
     <Resource name='scores' list={ScoreList} />
     <Resource name='score' show={ScoreShow} edit={ScoreEdit} create={ScoreCreate} />
     <Resource name='content' list={ContentList} options={{ label: 'Content' }} />
