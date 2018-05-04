@@ -245,7 +245,7 @@ describe('GET LIST', () => {
           score: {
             unaware: 3,
             curious: 3,
-            follower: 5,
+            follower: 6,
             guide: 1,
             confidence: 25
           }
