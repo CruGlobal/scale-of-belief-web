@@ -1,6 +1,8 @@
 import React from 'react'
-import { Show, SimpleShowLayout, TextField, DisabledInput, TextInput, Edit, SimpleForm, Create, SelectInput, SelectArrayInput, SelectField, required, email, regex } from 'admin-on-rest'
+import { Show, SimpleShowLayout, TextField, DisabledInput, TextInput, Edit, SimpleForm, Create, SelectInput, SelectField, required, email, regex } from 'admin-on-rest'
 import ChipArrayField from './chipArray'
+import ReactTooltip from 'react-tooltip'
+import TooltipSelectArrayInput from './TooltipSelectArrayInput'
 
 export const ApiUserShow = (props) => (
   <Show title='API User' {...props}>
@@ -21,7 +23,13 @@ export const ApiUserEdit = (props) => (
     <SimpleForm redirect='show'>
       <DisabledInput label='GUID' source='id' />
       <TextInput label='Email' source='user.contact_email' validate={[required, email]} />
-      <SelectArrayInput label='API Pattern' source='user.api_pattern' />
+      <TooltipSelectArrayInput label='API Pattern' source='user.api_pattern' />
+      <ReactTooltip place='right' type='info' effect='solid'>
+        <p>
+          API Patterns are regular expressions, giving access to this user for specific URIs (e.g. ".*.cru.org.*").<br />
+          You need to type "Enter" before the pattern will be recognized as added. You can add multiple patterns.
+        </p>
+      </ReactTooltip>
       <SelectInput label='' source='user.type' choices={[
         { id: '', name: 'Normal User' },
         { id: 'super', name: 'Super Admin' }
@@ -37,7 +45,13 @@ export const ApiUserCreate = (props) => (
     <SimpleForm redirect='show'>
       <TextInput label='GUID' source='id' validate={[required, guidValidate]} parse={v => v.toLowerCase()} />
       <TextInput label='Email' source='user.contact_email' validate={[required, email]} />
-      <SelectArrayInput label='API Pattern' source='user.api_pattern' />
+      <TooltipSelectArrayInput label='API Pattern' source='user.api_pattern' />
+      <ReactTooltip place='right' type='info' effect='solid'>
+        <p>
+          API Patterns are regular expressions, giving access to this user for specific URIs (e.g. ".*.cru.org.*").<br />
+          You need to type "Enter" before the pattern will be recognized as added. You can add multiple patterns.
+        </p>
+      </ReactTooltip>
       <SelectInput label='' source='user.type' choices={[
         { id: '', name: 'Normal User' },
         { id: 'super', name: 'Super Admin' }
