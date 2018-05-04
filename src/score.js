@@ -46,29 +46,29 @@ const validateScore = (record) => {
     return errors
   }
 
-  if (!score.unaware || score.unaware < 1 || score.unaware > 5) {
+  if (!score.unaware || score.unaware < 1 || score.unaware > 6) {
     if (!errors.score) {
       errors.score = {}
     }
-    errors.score.unaware = ['Score must be between 1 and 5']
+    errors.score.unaware = ['Score must be between 1 and 6']
   }
-  if (!score.curious || score.curious < 1 || score.curious > 5) {
+  if (!score.curious || score.curious < 1 || score.curious > 6) {
     if (!errors.score) {
       errors.score = {}
     }
-    errors.score.curious = ['Score must be between 1 and 5']
+    errors.score.curious = ['Score must be between 1 and 6']
   }
-  if (!score.follower || score.follower < 1 || score.follower > 5) {
+  if (!score.follower || score.follower < 1 || score.follower > 6) {
     if (!errors.score) {
       errors.score = {}
     }
-    errors.score.follower = ['Score must be between 1 and 5']
+    errors.score.follower = ['Score must be between 1 and 6']
   }
-  if (!score.guide || score.guide < 1 || score.guide > 5) {
+  if (!score.guide || score.guide < 1 || score.guide > 6) {
     if (!errors.score) {
       errors.score = {}
     }
-    errors.score.guide = ['Score must be between 1 and 5']
+    errors.score.guide = ['Score must be between 1 and 6']
   }
   if (!score.confidence || score.confidence < 0 || score.confidence > 100) {
     if (!errors.score) {
