@@ -30,7 +30,7 @@ export const ScoreList = (props) => (
   <List title='Existing Scores' {...props} filters={<ScoresFilter />} actions={<ScoresActions />}>
     <Datagrid>
       <UrlField source='id' label='URI' />
-      <SelectField label='Unaware' source='score.unaware' choices={scoreChoices} />
+      <SelectField label='Content' source='score.unaware' choices={scoreChoices} />
       <SelectField label='Curious' source='score.curious' choices={scoreChoices} />
       <SelectField label='Follower' source='score.follower' choices={scoreChoices} />
       <SelectField label='Guide' source='score.guide' choices={scoreChoices} />
