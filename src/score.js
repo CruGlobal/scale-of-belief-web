@@ -1,5 +1,5 @@
 import React from 'react'
-import { Show, SimpleShowLayout, TextField, DisabledInput, TextInput, Edit, SimpleForm, RefreshButton, ShowButton, EditButton, Create, UrlField } from 'admin-on-rest'
+import { Show, SimpleShowLayout, TextField, DisabledInput, TextInput, Edit, SimpleForm, RefreshButton, ShowButton, EditButton, Create, UrlField, RadioButtonGroupInput } from 'admin-on-rest'
 import { CardActions } from 'material-ui/Card'
 import ListScoresButton from './scores/ListScoresButton'
 
@@ -80,14 +80,23 @@ const validateScore = (record) => {
   return errors
 }
 
+const scoreChoices = [
+  { id: '1', name: 'Highly Uninterested' },
+  { id: '2', name: 'Moderately Uninterested' },
+  { id: '3', name: 'Somewhat Uninterested' },
+  { id: '4', name: 'Somewhat Interested' },
+  { id: '5', name: 'Moderately Interested' },
+  { id: '6', name: 'Highly Interested' }
+]
+
 export const ScoreEdit = (props) => (
   <Edit title='Edit Score' actions={<EditScoreActions />} {...props}>
     <SimpleForm redirect='show' validate={validateScore}>
       <DisabledInput label='URI' source='id' />
-      <TextInput label='Unaware' source='score.unaware' />
-      <TextInput label='Curious' source='score.curious' />
-      <TextInput label='Follower' source='score.follower' />
-      <TextInput label='Guide' source='score.guide' />
+      <RadioButtonGroupInput label='Unaware' source='score.unaware' choices={scoreChoices} />
+      <RadioButtonGroupInput label='Curious' source='score.curious' choices={scoreChoices} />
+      <RadioButtonGroupInput label='Follower' source='score.follower' choices={scoreChoices} />
+      <RadioButtonGroupInput label='Guide' source='score.guide' choices={scoreChoices} />
       <TextInput label='Confidence' source='score.confidence' />
     </SimpleForm>
   </Edit>
@@ -104,10 +113,10 @@ export const ScoreCreate = (props) => (
   <Create title='Create Score' actions={<CreateScoreActions />} {...props}>
     <SimpleForm redirect='show' validate={validateScore}>
       <TextInput label='URI' source='id' />
-      <TextInput label='Unaware' source='score.unaware' />
-      <TextInput label='Curious' source='score.curious' />
-      <TextInput label='Follower' source='score.follower' />
-      <TextInput label='Guide' source='score.guide' />
+      <RadioButtonGroupInput label='Unaware' source='score.unaware' choices={scoreChoices} />
+      <RadioButtonGroupInput label='Curious' source='score.curious' choices={scoreChoices} />
+      <RadioButtonGroupInput label='Follower' source='score.follower' choices={scoreChoices} />
+      <RadioButtonGroupInput label='Guide' source='score.guide' choices={scoreChoices} />
       <TextInput label='Confidence' source='score.confidence' />
     </SimpleForm>
   </Create>
