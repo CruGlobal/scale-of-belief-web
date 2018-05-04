@@ -1,5 +1,5 @@
 import React from 'react'
-import { Show, SimpleShowLayout, TextField, DisabledInput, TextInput, Edit, SimpleForm, RefreshButton, ShowButton, EditButton, Create, UrlField, RadioButtonGroupInput } from 'admin-on-rest'
+import { Show, SimpleShowLayout, TextField, DisabledInput, TextInput, Edit, SimpleForm, RefreshButton, ShowButton, EditButton, Create, UrlField, RadioButtonGroupInput, SelectField } from 'admin-on-rest'
 import { CardActions } from 'material-ui/Card'
 import ListScoresButton from './scores/ListScoresButton'
 
@@ -11,14 +11,23 @@ const ShowScoreActions = ({ basePath, data }) => (
   </CardActions>
 )
 
+const scoreChoices = [
+  { id: 1, name: 'Highly Uninterested' },
+  { id: 2, name: 'Moderately Uninterested' },
+  { id: 3, name: 'Somewhat Uninterested' },
+  { id: 4, name: 'Somewhat Interested' },
+  { id: 5, name: 'Moderately Interested' },
+  { id: 6, name: 'Highly Interested' }
+]
+
 export const ScoreShow = (props) => (
   <Show title='Single Score' actions={<ShowScoreActions />} {...props}>
     <SimpleShowLayout>
       <UrlField source='id' label='URI' />
-      <TextField source='score.unaware' label='Unaware' />
-      <TextField source='score.curious' label='Curious' />
-      <TextField source='score.follower' label='Follower' />
-      <TextField source='score.guide' label='Guide' />
+      <SelectField label='Unaware' source='score.unaware' choices={scoreChoices} />
+      <SelectField label='Curious' source='score.curious' choices={scoreChoices} />
+      <SelectField label='Follower' source='score.follower' choices={scoreChoices} />
+      <SelectField label='Guide' source='score.guide' choices={scoreChoices} />
       <TextField source='score.confidence' label='Confidence' />
     </SimpleShowLayout>
   </Show>
@@ -79,15 +88,6 @@ const validateScore = (record) => {
 
   return errors
 }
-
-const scoreChoices = [
-  { id: '1', name: 'Highly Uninterested' },
-  { id: '2', name: 'Moderately Uninterested' },
-  { id: '3', name: 'Somewhat Uninterested' },
-  { id: '4', name: 'Somewhat Interested' },
-  { id: '5', name: 'Moderately Interested' },
-  { id: '6', name: 'Highly Interested' }
-]
 
 export const ScoreEdit = (props) => (
   <Edit title='Edit Score' actions={<EditScoreActions />} {...props}>
