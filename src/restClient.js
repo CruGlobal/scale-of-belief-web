@@ -30,7 +30,7 @@ const convertRESTRequestToHTTP = (type, resource, params) => {
     case GET_ONE: {
       const query = {
         uri: params.id,
-        guid: params.id.toLowerCase()
+        guid: params.id
       }
       url = `${API_URL}/${resource}?${stringify(query)}`
       break
@@ -59,7 +59,7 @@ const convertRESTRequestToHTTP = (type, resource, params) => {
         }
       } else if (params.data.user) {
         json = {
-          guid: params.data.id.toLowerCase(),
+          guid: params.data.id,
           contact_email: params.data.user.contact_email,
           api_pattern: params.data.user.api_pattern,
           type: params.data.user.type
@@ -114,7 +114,7 @@ const convertHTTPResponseToREST = (response, type, resource, params) => {
       const { json } = response
       return {
         data: {
-          id: json.uri || json.guid.toLowerCase(),
+          id: json.uri || json.guid,
           score: json.score,
           user: json
         }

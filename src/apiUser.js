@@ -38,12 +38,9 @@ export const ApiUserEdit = (props) => (
   </Edit>
 )
 
-const guidValidate = regex(/^(\{{0,1}([0-9a-fA-F]){8}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){12}\}{0,1})$/, 'Must be a valid GUID')
-
 export const ApiUserCreate = (props) => (
   <Create title='Create API User' {...props}>
     <SimpleForm redirect='show'>
-      <TextInput label='GUID' source='id' validate={[required, guidValidate]} parse={v => v.toLowerCase()} />
       <TextInput label='Email' source='user.contact_email' validate={[required, email]} />
       <TooltipSelectArrayInput label='API Pattern' source='user.api_pattern' />
       <ReactTooltip place='right' type='info' effect='solid'>
