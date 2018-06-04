@@ -57,6 +57,7 @@ const convertRESTRequestToHTTP = (type, resource, params) => {
           uri: params.data.id,
           score: params.data.score
         }
+        json.score.confidence = 0
       } else if (params.data.user) {
         json = {
           guid: params.data.id,

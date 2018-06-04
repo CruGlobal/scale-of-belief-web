@@ -1,5 +1,5 @@
 import React from 'react'
-import { Show, SimpleShowLayout, TextField, DisabledInput, TextInput, Edit, SimpleForm, RefreshButton, ShowButton, EditButton, Create, UrlField, RadioButtonGroupInput, SelectField } from 'admin-on-rest'
+import { Show, SimpleShowLayout, /* TextField, */ DisabledInput, /* TextInput, */ Edit, SimpleForm, RefreshButton, ShowButton, EditButton, Create, UrlField, RadioButtonGroupInput, SelectField } from 'admin-on-rest'
 import { CardActions } from 'material-ui/Card'
 import ListScoresButton from './scores/ListScoresButton'
 import ReactTooltip from 'react-tooltip'
@@ -30,7 +30,7 @@ export const ScoreShow = (props) => (
       <SelectField label='Curious' source='score.curious' choices={scoreChoices} />
       <SelectField label='Follower' source='score.follower' choices={scoreChoices} />
       <SelectField label='Guide' source='score.guide' choices={scoreChoices} />
-      <TextField source='score.confidence' label='Confidence' />
+      { /* <TextField source='score.confidence' label='Confidence' /> */ }
     </SimpleShowLayout>
   </Show>
 )
@@ -81,12 +81,14 @@ const validateScore = (record) => {
     }
     errors.score.guide = ['Score must be between 1 and 6']
   }
+  /*
   if (!score.confidence || score.confidence < 0 || score.confidence > 100) {
     if (!errors.score) {
       errors.score = {}
     }
     errors.score.confidence = ['Confidence must be between 0 and 100']
   }
+  */
 
   return errors
 }
@@ -99,7 +101,7 @@ export const ScoreEdit = (props) => (
       <RadioButtonGroupInput label='How interested would Curious people be in this event?' source='score.curious' choices={scoreChoices} />
       <RadioButtonGroupInput label='How interested would Followers be in this event?' source='score.follower' choices={scoreChoices} />
       <RadioButtonGroupInput label='How interested would Guides be in this event?' source='score.guide' choices={scoreChoices} />
-      <TextInput label='Confidence' source='score.confidence' />
+      { /* <TextInput label='Confidence' source='score.confidence' /> */ }
     </SimpleForm>
   </Edit>
 )
@@ -127,7 +129,7 @@ export const ScoreCreate = (props) => (
       <RadioButtonGroupInput label='How interested would Curious people be in this event?' source='score.curious' choices={scoreChoices} />
       <RadioButtonGroupInput label='How interested would Followers be in this event?' source='score.follower' choices={scoreChoices} />
       <RadioButtonGroupInput label='How interested would Guides be in this event?' source='score.guide' choices={scoreChoices} />
-      <TextInput label='Confidence' source='score.confidence' />
+      { /* <TextInput label='Confidence' source='score.confidence' /> */ }
     </SimpleForm>
   </Create>
 )
