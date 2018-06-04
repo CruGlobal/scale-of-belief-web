@@ -26,3 +26,19 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+.content-label {
+  color: #f9b625;
+}
+
+.curious-label {
+  color: #dd7d1b;
+}
+
+.follower-label {
+  color: #3eb1c8;
+}
+
+.guide-label {
+  color: #007398;
+}
