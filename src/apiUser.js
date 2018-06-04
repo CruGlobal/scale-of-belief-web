@@ -1,5 +1,5 @@
 import React from 'react'
-import { Show, SimpleShowLayout, TextField, DisabledInput, TextInput, Edit, SimpleForm, Create, SelectInput, SelectField, required, email, regex } from 'admin-on-rest'
+import { Show, SimpleShowLayout, TextField, DisabledInput, TextInput, Edit, SimpleForm, Create, SelectInput, SelectField, required, email } from 'admin-on-rest'
 import ChipArrayField from './chipArray'
 import ReactTooltip from 'react-tooltip'
 import TooltipSelectArrayInput from './TooltipSelectArrayInput'
