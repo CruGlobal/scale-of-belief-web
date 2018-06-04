@@ -27,18 +27,18 @@
   to { transform: rotate(360deg); }
 }
 
-.content-label {
+.content-label, .aor-field-score\.unaware label span {
   color: #f9b625;
 }
 
-.curious-label {
+.curious-label, .aor-field-score\.curious label span {
   color: #dd7d1b;
 }
 
-.follower-label {
+.follower-label, .aor-field-score\.follower label span {
   color: #3eb1c8;
 }
 
-.guide-label {
+.guide-label, .aor-field-score\.guide label span {
   color: #007398;
 }
