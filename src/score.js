@@ -81,12 +81,14 @@ const validateScore = (record) => {
     }
     errors.score.guide = ['Score must be between 1 and 6']
   }
+  /*
   if (!score.confidence || score.confidence < 0 || score.confidence > 100) {
     if (!errors.score) {
       errors.score = {}
     }
     errors.score.confidence = ['Confidence must be between 0 and 100']
   }
+  */
 
   return errors
 }
