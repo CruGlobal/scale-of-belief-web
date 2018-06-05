@@ -54,8 +54,7 @@ export class KeywordStyledRadioButtonGroupInput extends Component {
 
       const defaultLabelStyle = {
         lineHeight: '22px',
-        transform: 'scale(0.95) translate(0px, -6px)',
-        transformOrigin: 'left top 0px',
+        transform: 'scale(1) translate(0px, -6px)',
         pointerEvents: 'none',
         userSelect: 'none',
         marginTop: '20px',
