@@ -1,7 +1,8 @@
 import React from 'react'
-import { Show, SimpleShowLayout, /* TextField, */ DisabledInput, /* TextInput, */ Edit, SimpleForm, RefreshButton, ShowButton, EditButton, Create, UrlField, RadioButtonGroupInput, SelectField } from 'admin-on-rest'
+import { Show, SimpleShowLayout, /* TextField, */ DisabledInput, /* TextInput, */ Edit, SimpleForm, RefreshButton, ShowButton, EditButton, Create, UrlField, SelectField } from 'admin-on-rest'
 import { CardActions } from 'material-ui/Card'
 import ListScoresButton from './scores/ListScoresButton'
+import KeywordStyledRadioButtonGroupInput from './scores/KeywordStyledRadioButtonGroupInput'
 import ReactTooltip from 'react-tooltip'
 import TooltipTextInput from './TooltipTextInput'
 
@@ -97,10 +98,10 @@ export const ScoreEdit = (props) => (
   <Edit title='Edit Score' actions={<EditScoreActions />} {...props}>
     <SimpleForm redirect='show' validate={validateScore}>
       <DisabledInput label='URI' source='id' />
-      <RadioButtonGroupInput label='How interested would Content people be in this event?' source='score.unaware' choices={scoreChoices} />
-      <RadioButtonGroupInput label='How interested would Curious people be in this event?' source='score.curious' choices={scoreChoices} />
-      <RadioButtonGroupInput label='How interested would Followers be in this event?' source='score.follower' choices={scoreChoices} />
-      <RadioButtonGroupInput label='How interested would Guides be in this event?' source='score.guide' choices={scoreChoices} />
+      <KeywordStyledRadioButtonGroupInput label='How interested would Content people be in this event?' keyword='Content' keywordClass='content-label' source='score.unaware' choices={scoreChoices} />
+      <KeywordStyledRadioButtonGroupInput label='How interested would Curious people be in this event?' keyword='Curious' keywordClass='curious-label' source='score.curious' choices={scoreChoices} />
+      <KeywordStyledRadioButtonGroupInput label='How interested would Followers be in this event?' keyword='Followers' keywordClass='follower-label' source='score.follower' choices={scoreChoices} />
+      <KeywordStyledRadioButtonGroupInput label='How interested would Guides be in this event?' keyword='Guides' keywordClass='guide-label' source='score.guide' choices={scoreChoices} />
       { /* <TextInput label='Confidence' source='score.confidence' /> */ }
     </SimpleForm>
   </Edit>
@@ -125,10 +126,10 @@ export const ScoreCreate = (props) => (
           Growth Solutions Team at <a href='mailto:dps-growthsolutions@cru.org'>dps-growthsolutions@cru.org</a>.
         </p>
       </ReactTooltip>
-      <RadioButtonGroupInput label='How interested would Content people be in this event?' source='score.unaware' choices={scoreChoices} />
-      <RadioButtonGroupInput label='How interested would Curious people be in this event?' source='score.curious' choices={scoreChoices} />
-      <RadioButtonGroupInput label='How interested would Followers be in this event?' source='score.follower' choices={scoreChoices} />
-      <RadioButtonGroupInput label='How interested would Guides be in this event?' source='score.guide' choices={scoreChoices} />
+      <KeywordStyledRadioButtonGroupInput label='How interested would Content people be in this event?' keyword='Content' keywordClass='content-label' source='score.unaware' choices={scoreChoices} />
+      <KeywordStyledRadioButtonGroupInput label='How interested would Curious people be in this event?' keyword='Curious' keywordClass='curious-label' source='score.curious' choices={scoreChoices} />
+      <KeywordStyledRadioButtonGroupInput label='How interested would Followers be in this event?' keyword='Followers' keywordClass='follower-label' source='score.follower' choices={scoreChoices} />
+      <KeywordStyledRadioButtonGroupInput label='How interested would Guides be in this event?' keyword='Guides' keywordClass='guide-label' source='score.guide' choices={scoreChoices} />
       { /* <TextInput label='Confidence' source='score.confidence' /> */ }
     </SimpleForm>
   </Create>
