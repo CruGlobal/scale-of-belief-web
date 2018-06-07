@@ -1,5 +1,5 @@
 import React from 'react'
-import { Show, SimpleShowLayout, /* TextField, */ DisabledInput, /* TextInput, */ Edit, SimpleForm, RefreshButton, ShowButton, EditButton, Create, UrlField, SelectField, SelectInput } from 'admin-on-rest'
+import { Show, SimpleShowLayout, DisabledInput, Edit, SimpleForm, RefreshButton, ShowButton, EditButton, Create, UrlField, SelectField, SelectInput } from 'admin-on-rest'
 import { CardActions } from 'material-ui/Card'
 import ListScoresButton from './scores/ListScoresButton'
 import ReactTooltip from 'react-tooltip'
@@ -19,7 +19,6 @@ export const ScoreShow = (props) => (
     <SimpleShowLayout>
       <UrlField source='id' label='URI' />
       <SelectField label='Audience' source='score' choices={scoreMap()} />
-      { /* <TextField source='score.confidence' label='Confidence' /> */ }
     </SimpleShowLayout>
   </Show>
 )
@@ -49,14 +48,6 @@ const validateScore = (record) => {
   if (score < 0 || score > 10) {
     errors.score = ['Audience must be one of the given options']
   }
-  /*
-  if (!score.confidence || score.confidence < 0 || score.confidence > 100) {
-    if (!errors.score) {
-      errors.score = {}
-    }
-    errors.score.confidence = ['Confidence must be between 0 and 100']
-  }
-  */
 
   return errors
 }
@@ -66,7 +57,6 @@ export const ScoreEdit = (props) => (
     <SimpleForm redirect='show' validate={validateScore}>
       <DisabledInput label='URI' source='id' />
       <SelectInput label='Audience' source='score' choices={scoreMap()} />
-      { /* <TextInput label='Confidence' source='score.confidence' /> */ }
     </SimpleForm>
   </Edit>
 )
@@ -91,7 +81,6 @@ export const ScoreCreate = (props) => (
         </p>
       </ReactTooltip>
       <SelectInput label='Audience' source='score' choices={scoreMap()} />
-      { /* <TextInput label='Confidence' source='score.confidence' /> */ }
     </SimpleForm>
   </Create>
 )

@@ -1,5 +1,5 @@
 import React from 'react'
-import { List, Datagrid, /* TextField, */ Filter, TextInput, CreateButton, RefreshButton, UrlField, SelectField } from 'admin-on-rest'
+import { List, Datagrid, Filter, TextInput, CreateButton, RefreshButton, UrlField, SelectField } from 'admin-on-rest'
 import { CardActions } from 'material-ui/Card'
 import CustomEditButton from './customEditButton'
 import scoreMap from './scores/scoreMap'
@@ -23,7 +23,6 @@ export const ScoreList = (props) => (
     <Datagrid>
       <UrlField source='id' label='URI' />
       <SelectField label='Audience' source='score' choices={scoreMap()} />
-      { /* <TextField source='score.confidence' label='Confidence' /> */ }
       <CustomEditButton endpoint='score' />
     </Datagrid>
   </List>
