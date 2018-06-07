@@ -2,6 +2,7 @@ import React from 'react'
 import { List, Datagrid, /* TextField, */ Filter, TextInput, CreateButton, RefreshButton, UrlField, SelectField } from 'admin-on-rest'
 import { CardActions } from 'material-ui/Card'
 import CustomEditButton from './customEditButton'
+import scoreMap from './scores/scoreMap'
 
 const ScoresFilter = (props) => (
   <Filter {...props}>
@@ -17,25 +18,11 @@ const ScoresActions = ({ resource, filters, displayedFilters, filterValues, base
   </CardActions>
 )
 
-const scoreChoices = [
-  { id: 0, name: 'Hostile' },
-  { id: 1, name: 'Content' },
-  { id: 2, name: 'Contextualized' },
-  { id: 3, name: 'Curious' },
-  { id: 4, name: 'Seeker' },
-  { id: 5, name: 'New Believer' },
-  { id: 6, name: 'Learning Basics' },
-  { id: 7, name: 'Follower' },
-  { id: 8, name: 'Learning to Share Faith' },
-  { id: 8, name: 'Engaged Disciple' },
-  { id: 10, name: 'Guide' }
-]
-
 export const ScoreList = (props) => (
   <List title='Existing Scores' {...props} filters={<ScoresFilter />} actions={<ScoresActions />}>
     <Datagrid>
       <UrlField source='id' label='URI' />
-      <SelectField label='Audience' source='score' choices={scoreChoices} />
+      <SelectField label='Audience' source='score' choices={scoreMap()} />
       { /* <TextField source='score.confidence' label='Confidence' /> */ }
       <CustomEditButton endpoint='score' />
     </Datagrid>

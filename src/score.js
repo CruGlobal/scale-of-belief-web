@@ -5,6 +5,7 @@ import ListScoresButton from './scores/ListScoresButton'
 import KeywordStyledRadioButtonGroupInput from './scores/KeywordStyledRadioButtonGroupInput'
 import ReactTooltip from 'react-tooltip'
 import TooltipTextInput from './TooltipTextInput'
+import scoreMap from './scores/scoreMap'
 
 const ShowScoreActions = ({ basePath, data }) => (
   <CardActions>
@@ -27,10 +28,7 @@ export const ScoreShow = (props) => (
   <Show title='Single Score' actions={<ShowScoreActions />} {...props}>
     <SimpleShowLayout>
       <UrlField source='id' label='URI' />
-      <SelectField label='Content' source='score.unaware' choices={scoreChoices} />
-      <SelectField label='Curious' source='score.curious' choices={scoreChoices} />
-      <SelectField label='Follower' source='score.follower' choices={scoreChoices} />
-      <SelectField label='Guide' source='score.guide' choices={scoreChoices} />
+      <SelectField label='Audience' source='score' choices={scoreMap()} />
       { /* <TextField source='score.confidence' label='Confidence' /> */ }
     </SimpleShowLayout>
   </Show>
