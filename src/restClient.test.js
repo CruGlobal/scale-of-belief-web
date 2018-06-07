@@ -20,13 +20,7 @@ describe('GET ONE', () => {
 
       const existingScore = {
         uri: uri,
-        score: {
-          unaware: 1,
-          curious: 2,
-          follower: 3,
-          guide: 4,
-          confidence: 45
-        }
+        score: 10
       }
 
       const mockApiResponse = {
@@ -196,13 +190,7 @@ describe('GET LIST', () => {
 
       const existingScores = [{
         uri: params.filter['q'],
-        score: {
-          unaware: 1,
-          curious: 2,
-          follower: 3,
-          guide: 4,
-          confidence: 45
-        }
+        score: 5
       }]
 
       const mockApiResponse = {
@@ -232,23 +220,11 @@ describe('GET LIST', () => {
       const existingScores = [
         {
           uri: params.filter['q'] + '/one',
-          score: {
-            unaware: 1,
-            curious: 2,
-            follower: 3,
-            guide: 4,
-            confidence: 45
-          }
+          score: 7
         },
         {
           uri: params.filter['q'] + '/two',
-          score: {
-            unaware: 3,
-            curious: 3,
-            follower: 6,
-            guide: 1,
-            confidence: 25
-          }
+          score: 3
         }
       ]
 
@@ -484,13 +460,7 @@ describe('GET LIST', () => {
 describe('CREATE', () => {
   describe('Score', () => {
     const uri = 'http://some.uri.com'
-    const score = {
-      unaware: 1,
-      curious: 2,
-      follower: 3,
-      guide: 4,
-      confidence: 45
-    }
+    const score = 6
 
     it('should create a new score', done => {
       const params = {
@@ -630,13 +600,7 @@ describe('CREATE', () => {
 describe('UPDATE', () => {
   describe('Score', () => {
     const uri = 'http://some.uri.com'
-    const score = {
-      unaware: 1,
-      curious: 2,
-      follower: 3,
-      guide: 4,
-      confidence: 45
-    }
+    const score = 2
 
     it('should update an existing score', done => {
       const params = {
