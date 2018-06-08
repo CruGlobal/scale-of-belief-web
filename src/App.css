@@ -27,22 +27,22 @@
   to { transform: rotate(360deg); }
 }
 
-.content-label, .aor-field-score\.unaware label span, button[data-sort='score.unaware'] span {
+.content-label {
   color: #f9b625;
   font-weight: bold;
 }
 
-.curious-label, .aor-field-score\.curious label span, button[data-sort='score.curious'] span {
+.curious-label {
   color: #dd7d1b;
   font-weight: bold;
 }
 
-.follower-label, .aor-field-score\.follower label span, button[data-sort='score.follower'] span {
+.follower-label {
   color: #3eb1c8;
   font-weight: bold;
 }
 
-.guide-label, .aor-field-score\.guide label span, button[data-sort='score.guide'] span {
+.guide-label {
   color: #007398;
   font-weight: bold;
 }
