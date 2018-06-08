@@ -19,9 +19,18 @@ export default () => (
     <Card>
       <ViewTitle title='People' />
       <CardText>
-        <span className='content-label'>Content</span> - Those with no desired relationship to faith. This includes people who are hostile
-        towards Christianity, those who are content with their own religious beliefs that differ from Christianity,
-        those who are content without religion, and those who have never heard the Gospel.
+        <span className='hostile-label'>Hostile/Unaware</span> - Those who are hostile towards Christianity or those who
+        have never heard the Gospel.
+      </CardText>
+
+      <CardText>
+        <span className='content-label'>Content</span> - Those with no desired relationship to faith.
+        These people have some knowledge of Christianity, but are not actively hostile towards it.
+      </CardText>
+
+      <CardText>
+        <span className='contextualized-label'>Contextualized</span> - Those who know and trust at least one Christian.
+        This includes people who are content to identify with the beliefs of their culture.
       </CardText>
 
       <CardText>
@@ -30,13 +39,39 @@ export default () => (
       </CardText>
 
       <CardText>
-        <span className='follower-label'>Follower</span> - Those who profess to be Christian. These people may or may not be actively looking for ways
-        to grow spiritually. Either way, they are not yet committed to impacting the world around them for Christ.
+        <span className='seeker-label'>Seeker</span> - Those who are actively interacting with a Christian about
+        Christianity on an ongoing basis, and willing to continue doing so.
+      </CardText>
+
+      <CardText>
+        <span className='believer-label'>Believer</span> - Those who profess to be Christian.
+        These people may or may not be actively looking for ways to grow spiritually.
+        Either way, they are not yet committed to impacting the world around them for Christ.
+      </CardText>
+
+      <CardText>
+        <span className='learner-label'>Learner</span> - Those who are in the process of new Christian instruction.
+        This could include follow-up and fellowship with other believers.
+      </CardText>
+
+      <CardText>
+        <span className='follower-label'>Follower</span> - Those who are secure in the faith, attending church or
+        fellowship regularly and have a grounding in basic orthodox Christian beliefs.
+      </CardText>
+
+      <CardText>
+        <span className='new-disciple-label'>New Disciple</span> - Those who are learning how to share their faith with others,
+        how to disciple others, and/or are actively being discipled by someone else.
+      </CardText>
+
+      <CardText>
+        <span className='engaged-disciple-label'>Engaged Disciple</span> - Those who are actively sharing their faith with others
+        on a regular basis.
       </CardText>
 
       <CardText>
         <span className='guide-label'>Guide</span> - Those advancing the mission of the Gospel. These are people mobilizing their faith through
-        evangelism, discipleship, or serving others through personal or organizational ministry.
+        evangelism, discipleship, or serving others through personal or organizational ministry. A multiplying disciple.
       </CardText>
     </Card>
   </div>
