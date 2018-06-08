@@ -46,3 +46,13 @@
   color: #007398;
   font-weight: bold;
 }
+
+.hostile-label,
+.contextualized-label,
+.seeker-label,
+.believer-label,
+.learner-label,
+.new-disciple-label,
+.engaged-disciple-label {
+  font-weight: bold;
+}
