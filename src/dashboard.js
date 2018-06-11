@@ -73,7 +73,7 @@ export default () => (
     <br />
 
     <Card>
-      <CardHeader title="Guide" titleStyle={{fontSize: '20px', lineHeight: '24px', color: '#007398'}} />
+      <CardHeader title='Guide' titleStyle={{fontSize: '20px', lineHeight: '24px', color: '#007398'}} />
       <CardText>
         <span className='keyword-label'>New Disciple</span> - Those who are learning how to share their faith with others,
         how to disciple others, and/or are actively being discipled by someone else.
