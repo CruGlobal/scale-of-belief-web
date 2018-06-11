@@ -2,7 +2,7 @@ import React from 'react'
 import { List, Datagrid, Filter, TextInput, CreateButton, RefreshButton, UrlField, SelectField } from 'admin-on-rest'
 import { CardActions } from 'material-ui/Card'
 import CustomEditButton from './customEditButton'
-import scoreMap from './scores/scoreMap'
+import { FullMap } from './scores/scoreMap'
 
 const ScoresFilter = (props) => (
   <Filter {...props}>
@@ -22,7 +22,7 @@ export const ScoreList = (props) => (
   <List title='Existing Scores' {...props} filters={<ScoresFilter />} actions={<ScoresActions />}>
     <Datagrid>
       <UrlField source='id' label='URI' />
-      <SelectField label='Audience' source='score' choices={scoreMap()} />
+      <SelectField label='Audience' source='score' choices={FullMap()} />
       <CustomEditButton endpoint='score' />
     </Datagrid>
   </List>

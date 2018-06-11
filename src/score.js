@@ -4,7 +4,7 @@ import { CardActions } from 'material-ui/Card'
 import ListScoresButton from './scores/ListScoresButton'
 import ReactTooltip from 'react-tooltip'
 import TooltipTextInput from './TooltipTextInput'
-import scoreMap from './scores/scoreMap'
+import { FullMap, PartialMap } from './scores/scoreMap'
 
 const ShowScoreActions = ({ basePath, data }) => (
   <CardActions>
@@ -18,7 +18,7 @@ export const ScoreShow = (props) => (
   <Show title='Single Score' actions={<ShowScoreActions />} {...props}>
     <SimpleShowLayout>
       <UrlField source='id' label='URI' />
-      <SelectField label='Audience' source='score' choices={scoreMap()} />
+      <SelectField label='Audience' source='score' choices={FullMap()} />
     </SimpleShowLayout>
   </Show>
 )
@@ -56,7 +56,7 @@ export const ScoreEdit = (props) => (
   <Edit title='Edit Score' actions={<EditScoreActions />} {...props}>
     <SimpleForm redirect='show' validate={validateScore}>
       <DisabledInput label='URI' source='id' />
-      <SelectInput label='Audience' source='score' choices={scoreMap()} />
+      <SelectInput label='Audience' source='score' choices={PartialMap()} />
     </SimpleForm>
   </Edit>
 )
@@ -80,7 +80,7 @@ export const ScoreCreate = (props) => (
           Growth Solutions Team at <a href='mailto:dps-growthsolutions@cru.org'>dps-growthsolutions@cru.org</a>.
         </p>
       </ReactTooltip>
-      <SelectInput label='Audience' source='score' choices={scoreMap()} />
+      <SelectInput label='Audience' source='score' choices={PartialMap()} />
     </SimpleForm>
   </Create>
 )
