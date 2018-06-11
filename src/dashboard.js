@@ -31,7 +31,7 @@ export default () => (
       </CardText>
 
       <CardText>
-        <span className='keyword-label'>Contextualized</span> - Those who know and trust at least one Christian.
+        <span className='keyword-label'>Aware</span> - Those who know and trust at least one Christian.
         This includes people who are content to identify with the beliefs of their culture.
       </CardText>
 

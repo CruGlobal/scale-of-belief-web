@@ -1,7 +1,7 @@
 export const FullMap = () => [
   { id: 0, name: 'Hostile/Unaware' },
   { id: 1, name: 'Content' },
-  { id: 2, name: 'Contextualized' },
+  { id: 2, name: 'Aware' },
   { id: 3, name: 'Curious' },
   { id: 4, name: 'Seeker' },
   { id: 5, name: 'Believer' },
@@ -15,7 +15,7 @@ export const FullMap = () => [
 export const PartialMap = () => [
   { id: 0, name: 'Hostile/Unaware' },
   { id: 1, name: 'Content' },
-  { id: 2, name: 'Contextualized' },
+  { id: 2, name: 'Aware' },
   { id: 3, name: 'Curious' },
   { id: 4, name: 'Seeker' },
   { id: 5, name: 'Believer' },
