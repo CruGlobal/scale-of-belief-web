@@ -41,7 +41,9 @@ const convertRESTRequestToHTTP = (type, resource, params) => {
         return {}
       }
       const query = {
-        uri: JSON.stringify(params.filter['q'])
+        uri: JSON.stringify(params.filter['q']),
+        page: params.pagination['page'],
+        per_page: params.pagination['perPage']
       }
       url = `${API_URL}/${resource}?${stringify(query)}`
       break
@@ -93,8 +95,19 @@ const convertHTTPResponseToREST = (response, type, resource, params) => {
         }
       }
       const { json } = response
+
+      let listData = json
+      if (json.data) {
+        listData = json.data
+      }
+
+      let total = json.length
+      if (json.meta && json.meta.total) {
+        total = parseInt(json.meta.total, 10)
+      }
+
       return {
-        data: json.map((x) => {
+        data: listData.map((x) => {
           // This is the case for /content which brings back an array of strings
           if (typeof x === 'string') {
             return {
@@ -107,7 +120,7 @@ const convertHTTPResponseToREST = (response, type, resource, params) => {
             user: x
           }
         }),
-        total: json.length
+        total: total
       }
     }
     default:

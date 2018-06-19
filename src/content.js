@@ -8,7 +8,7 @@ const ContentFilter = (props) => (
 )
 
 export const ContentList = (props) => (
-  <List title='Content Without Scores' {...props} filters={<ContentFilter />}>
+  <List title='Content Without Scores' {...props} filters={<ContentFilter />} perPage={25}>
     <Datagrid>
       <UrlField source='id' label='URI' />
     </Datagrid>
