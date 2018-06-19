@@ -47,6 +47,10 @@ const convertRESTRequestToHTTP = (type, resource, params) => {
         orderBy = orderBy.substring(6)
       }
 
+      if (resource === 'api-users' && orderBy === 'id') {
+        orderBy = 'guid'
+      }
+
       if (orderBy === 'id') {
         orderBy = 'uri'
       }
