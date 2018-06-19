@@ -40,10 +40,22 @@ const convertRESTRequestToHTTP = (type, resource, params) => {
         // short-circuit
         return {}
       }
+
+      let orderBy = params.sort['field']
+
+      if (orderBy.startsWith('Score.')) {
+        orderBy = orderBy.substring(6)
+      }
+
+      if (orderBy === 'id') {
+        orderBy = 'uri'
+      }
       const query = {
         uri: JSON.stringify(params.filter['q']),
         page: params.pagination['page'],
-        per_page: params.pagination['perPage']
+        per_page: params.pagination['perPage'],
+        order_by: orderBy,
+        order: params.sort['order']
       }
       url = `${API_URL}/${resource}?${stringify(query)}`
       break
