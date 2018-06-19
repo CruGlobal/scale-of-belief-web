@@ -19,7 +19,7 @@ const ScoresActions = ({ resource, filters, displayedFilters, filterValues, base
 )
 
 export const ScoreList = (props) => (
-  <List title='Existing Scores' {...props} filters={<ScoresFilter />} actions={<ScoresActions />}>
+  <List title='Existing Scores' {...props} filters={<ScoresFilter />} actions={<ScoresActions />} perPage={25}>
     <Datagrid>
       <UrlField source='id' label='URI' />
       <SelectField label='Audience' source='score' choices={FullMap()} />
