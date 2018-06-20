@@ -71,7 +71,7 @@ const CreateScoreActions = ({ basePath, data }) => (
 export const ScoreCreate = (props) => (
   <Create title='Create Score' actions={<CreateScoreActions />} {...props}>
     <SimpleForm redirect='show' validate={validateScore}>
-      <TooltipTextInput label='URI' source='id' />
+      <TooltipTextInput label='URI' source='id' input={{value: parseQuery(window.location.hash).id}} />
       <ReactTooltip place='right' type='info' delayHide={1000} effect='solid'>
         <p>
           Events are identified in our system by their URI. For Web Pages, the URI is simply the full URL.<br />
@@ -84,3 +84,13 @@ export const ScoreCreate = (props) => (
     </SimpleForm>
   </Create>
 )
+
+function parseQuery (queryString) {
+  let query = {}
+  const pairs = (queryString[0] === '#' ? queryString.substr(queryString.indexOf('?') + 1) : queryString).split('&')
+  for (var i = 0; i < pairs.length; i++) {
+    var pair = pairs[i].split('=')
+    query[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1] || '')
+  }
+  return query
+}
