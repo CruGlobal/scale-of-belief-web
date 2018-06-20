@@ -118,7 +118,7 @@ const convertHTTPResponseToREST = (response, type, resource, params) => {
       }
 
       let total = json.length
-      if (json.meta && json.meta.total) {
+      if (json.meta && json.meta.total !== null && json.meta.total >= 0) {
         total = parseInt(json.meta.total, 10)
       }
 

@@ -185,13 +185,26 @@ describe('GET LIST', () => {
       const params = {
         filter: {
           q: 'http://some-uri.com/one'
+        },
+        pagination: {
+          page: 1,
+          perPage: 25
+        },
+        sort: {
+          field: 'Score.id',
+          order: 'ASC'
         }
       }
 
-      const existingScores = [{
-        uri: params.filter['q'],
-        score: 5
-      }]
+      const existingScores = {
+        data: [{
+          uri: params.filter['q'],
+          score: 5
+        }],
+        meta: {
+          total: 1
+        }
+      }
 
       const mockApiResponse = {
         text: jest.fn(() => Promise.resolve(JSON.stringify(existingScores))),
@@ -205,28 +218,46 @@ describe('GET LIST', () => {
       restClient(GET_LIST, 'scores', params).then((response) => {
         expect(response).toBeDefined()
         expect(response.data).toBeDefined()
-        expect(response.data[0].id).toEqual(existingScores[0].uri)
-        expect(response.data[0].score).toEqual(existingScores[0].score)
+        expect(response.data[0].id).toEqual(existingScores.data[0].uri)
+        expect(response.data[0].score).toEqual(existingScores.data[0].score)
+        expect(response.total).toEqual(existingScores.meta.total)
         done()
       })
+        .catch((error) => {
+          console.log('Error returning one score result', error)
+          done.fail()
+        })
     })
 
     it('should return multiple results', done => {
       const params = {
         filter: {
           q: 'http://some-uri.com'
+        },
+        pagination: {
+          page: 1,
+          perPage: 25
+        },
+        sort: {
+          field: 'Score.id',
+          order: 'ASC'
         }
       }
-      const existingScores = [
-        {
-          uri: params.filter['q'] + '/one',
-          score: 7
-        },
-        {
-          uri: params.filter['q'] + '/two',
-          score: 3
+      const existingScores = {
+        data: [
+          {
+            uri: params.filter['q'] + '/one',
+            score: 7
+          },
+          {
+            uri: params.filter['q'] + '/two',
+            score: 3
+          }
+        ],
+        meta: {
+          total: 2
         }
-      ]
+      }
 
       const mockApiResponse = {
         text: jest.fn(() => Promise.resolve(JSON.stringify(existingScores))),
@@ -240,23 +271,36 @@ describe('GET LIST', () => {
       restClient(GET_LIST, 'scores', params).then((response) => {
         expect(response).toBeDefined()
         expect(response.data).toBeDefined()
-        expect(response.data[0].id).toEqual(existingScores[0].uri)
-        expect(response.data[0].score).toEqual(existingScores[0].score)
-        expect(response.data[1].id).toEqual(existingScores[1].uri)
-        expect(response.data[1].score).toEqual(existingScores[1].score)
+        expect(response.data[0].id).toEqual(existingScores.data[0].uri)
+        expect(response.data[0].score).toEqual(existingScores.data[0].score)
+        expect(response.data[1].id).toEqual(existingScores.data[1].uri)
+        expect(response.data[1].score).toEqual(existingScores.data[1].score)
+        expect(response.total).toEqual(existingScores.meta.total)
         done()
       })
+        .catch((error) => {
+          console.log('Error returning multiple score results', error)
+          done.fail()
+        })
     })
 
     it('should return no results', done => {
       const params = {
         filter: {
           q: 'http://nonexisting-uri.com'
+        },
+        pagination: {
+          page: 1,
+          perPage: 25
+        },
+        sort: {
+          field: 'Score.id',
+          order: 'ASC'
         }
       }
 
       const mockApiResponse = {
-        text: jest.fn(() => Promise.resolve(JSON.stringify([]))),
+        text: jest.fn(() => Promise.resolve(JSON.stringify({data: [], meta: {total: 0}}))),
         status: 200,
         statusText: 'OK',
         headers: {}
@@ -268,66 +312,43 @@ describe('GET LIST', () => {
         expect(response).toBeDefined()
         expect(response.data).toBeDefined()
         expect(response.data).toEqual([])
+        expect(response.total).toEqual(0)
         done()
       })
+        .catch((error) => {
+          console.log('Error returning no score results', error)
+          done.fail()
+        })
     })
   })
 
   describe('Api Users', () => {
     it('should return a single result', done => {
-      const params = { filter: {} }
-
-      const existingUsers = [{
-        guid: 'some-guid',
-        contact_email: 'some.email@example.com',
-        api_pattern: [
-          '.*'
-        ],
-        type: 'super'
-      }]
-
-      const mockApiResponse = {
-        text: jest.fn(() => Promise.resolve(JSON.stringify(existingUsers))),
-        status: 200,
-        statusText: 'OK',
-        headers: {}
+      const params = {
+        filter: {},
+        pagination: {
+          page: 1,
+          perPage: 25
+        },
+        sort: {
+          field: 'id',
+          order: 'ASC'
+        }
       }
 
-      global.fetch.mockReturnValueOnce(Promise.resolve(mockApiResponse))
-
-      restClient(GET_LIST, 'api-users', params).then((response) => {
-        expect(response).toBeDefined()
-        expect(response.data).toBeDefined()
-        expect(response.data[0].id).toEqual(existingUsers[0].guid)
-        expect(response.data[0].user.contact_email).toEqual(existingUsers[0].contact_email)
-        expect(response.data[0].user.api_pattern).toEqual(existingUsers[0].api_pattern)
-        expect(response.data[0].user.type).toEqual(existingUsers[0].type)
-        done()
-      })
-    })
-
-    it('should return multiple results', done => {
-      const params = { filter: {} }
-
-      const existingUsers = [
-        {
+      const existingUsers = {
+        data: [{
           guid: 'some-guid',
           contact_email: 'some.email@example.com',
           api_pattern: [
             '.*'
           ],
           type: 'super'
-        },
-        {
-          guid: 'other-guid',
-          contact_email: 'other.email@example.com',
-          api_pattern: [
-            '.*some-uri.*',
-            '.*other-uri.*'
-          ],
-          type: ''
+        }],
+        meta: {
+          total: 1
         }
-      ]
+      }
 
       const mockApiResponse = {
         text: jest.fn(() => Promise.resolve(JSON.stringify(existingUsers))),
@@ -341,23 +362,101 @@ describe('GET LIST', () => {
       restClient(GET_LIST, 'api-users', params).then((response) => {
         expect(response).toBeDefined()
         expect(response.data).toBeDefined()
-        expect(response.data[0].id).toEqual(existingUsers[0].guid)
-        expect(response.data[0].user.contact_email).toEqual(existingUsers[0].contact_email)
-        expect(response.data[0].user.api_pattern).toEqual(existingUsers[0].api_pattern)
-        expect(response.data[0].user.type).toEqual(existingUsers[0].type)
-        expect(response.data[1].id).toEqual(existingUsers[1].guid)
-        expect(response.data[1].user.contact_email).toEqual(existingUsers[1].contact_email)
-        expect(response.data[1].user.api_pattern).toEqual(existingUsers[1].api_pattern)
-        expect(response.data[1].user.type).toEqual(existingUsers[1].type)
+        expect(response.data[0].id).toEqual(existingUsers.data[0].guid)
+        expect(response.data[0].user.contact_email).toEqual(existingUsers.data[0].contact_email)
+        expect(response.data[0].user.api_pattern).toEqual(existingUsers.data[0].api_pattern)
+        expect(response.data[0].user.type).toEqual(existingUsers.data[0].type)
+        expect(response.total).toEqual(existingUsers.meta.total)
         done()
       })
+        .catch((error) => {
+          console.log('Error returning one user result', error)
+          done.fail()
+        })
+    })
+
+    it('should return multiple results', done => {
+      const params = {
+        filter: {},
+        pagination: {
+          page: 1,
+          perPage: 25
+        },
+        sort: {
+          field: 'id',
+          order: 'ASC'
+        }
+      }
+
+      const existingUsers = {
+        data: [
+          {
+            guid: 'some-guid',
+            contact_email: 'some.email@example.com',
+            api_pattern: [
+              '.*'
+            ],
+            type: 'super'
+          },
+          {
+            guid: 'other-guid',
+            contact_email: 'other.email@example.com',
+            api_pattern: [
+              '.*some-uri.*',
+              '.*other-uri.*'
+            ],
+            type: ''
+          }
+        ],
+        meta: {
+          total: 2
+        }
+      }
+
+      const mockApiResponse = {
+        text: jest.fn(() => Promise.resolve(JSON.stringify(existingUsers))),
+        status: 200,
+        statusText: 'OK',
+        headers: {}
+      }
+
+      global.fetch.mockReturnValueOnce(Promise.resolve(mockApiResponse))
+
+      restClient(GET_LIST, 'api-users', params).then((response) => {
+        expect(response).toBeDefined()
+        expect(response.data).toBeDefined()
+        expect(response.data[0].id).toEqual(existingUsers.data[0].guid)
+        expect(response.data[0].user.contact_email).toEqual(existingUsers.data[0].contact_email)
+        expect(response.data[0].user.api_pattern).toEqual(existingUsers.data[0].api_pattern)
+        expect(response.data[0].user.type).toEqual(existingUsers.data[0].type)
+        expect(response.data[1].id).toEqual(existingUsers.data[1].guid)
+        expect(response.data[1].user.contact_email).toEqual(existingUsers.data[1].contact_email)
+        expect(response.data[1].user.api_pattern).toEqual(existingUsers.data[1].api_pattern)
+        expect(response.data[1].user.type).toEqual(existingUsers.data[1].type)
+        expect(response.total).toEqual(existingUsers.meta.total)
+        done()
+      })
+        .catch((error) => {
+          console.log('Error returning multiple user results', error)
+          done.fail()
+        })
     })
 
     it('should return no results', done => {
-      const params = { filter: {} }
+      const params = {
+        filter: {},
+        pagination: {
+          page: 1,
+          perPage: 25
+        },
+        sort: {
+          field: 'id',
+          order: 'ASC'
+        }
+      }
 
       const mockApiResponse = {
-        text: jest.fn(() => Promise.resolve(JSON.stringify([]))),
+        text: jest.fn(() => Promise.resolve(JSON.stringify({data: [], meta: {total: 0}}))),
         status: 200,
         statusText: 'OK',
         headers: {}
@@ -369,8 +468,13 @@ describe('GET LIST', () => {
         expect(response).toBeDefined()
         expect(response.data).toBeDefined()
         expect(response.data).toEqual([])
+        expect(response.total).toEqual(0)
         done()
       })
+        .catch((error) => {
+          console.log('Error returning no user results', error)
+          done.fail()
+        })
     })
   })
 
@@ -379,10 +483,23 @@ describe('GET LIST', () => {
       const params = {
         filter: {
           q: 'http://some-uri.com/one'
+        },
+        pagination: {
+          page: 1,
+          perPage: 25
+        },
+        sort: {
+          field: 'id',
+          order: 'ASC'
         }
       }
 
-      const existingUnscoredContent = [ params.filter['q'] ]
+      const existingUnscoredContent = {
+        data: [ params.filter['q'] ],
+        meta: {
+          total: 1
+        }
+      }
 
       const mockApiResponse = {
         text: jest.fn(() => Promise.resolve(JSON.stringify(existingUnscoredContent))),
@@ -396,22 +513,40 @@ describe('GET LIST', () => {
       restClient(GET_LIST, 'content', params).then((response) => {
         expect(response).toBeDefined()
         expect(response.data).toBeDefined()
-        expect(response.data[0].id).toEqual(existingUnscoredContent[0])
+        expect(response.data[0].id).toEqual(existingUnscoredContent.data[0])
+        expect(response.total).toEqual(existingUnscoredContent.meta.total)
         done()
       })
+        .catch((error) => {
+          console.log('Error returning single unscored result', error)
+          done.fail()
+        })
     })
 
     it('should return multiple results', done => {
       const params = {
         filter: {
           q: 'http://some-uri.com'
+        },
+        pagination: {
+          page: 1,
+          perPage: 25
+        },
+        sort: {
+          field: 'id',
+          order: 'ASC'
         }
       }
 
-      const existingUnscoredContent = [
-        params.filter['q'] + '/one',
-        params.filter['q'] + '/two'
-      ]
+      const existingUnscoredContent = {
+        data: [
+          params.filter['q'] + '/one',
+          params.filter['q'] + '/two'
+        ],
+        meta: {
+          total: 2
+        }
+      }
 
       const mockApiResponse = {
         text: jest.fn(() => Promise.resolve(JSON.stringify(existingUnscoredContent))),
@@ -425,21 +560,34 @@ describe('GET LIST', () => {
       restClient(GET_LIST, 'content', params).then((response) => {
         expect(response).toBeDefined()
         expect(response.data).toBeDefined()
-        expect(response.data[0].id).toEqual(existingUnscoredContent[0])
-        expect(response.data[1].id).toEqual(existingUnscoredContent[1])
+        expect(response.data[0].id).toEqual(existingUnscoredContent.data[0])
+        expect(response.data[1].id).toEqual(existingUnscoredContent.data[1])
+        expect(response.total).toEqual(existingUnscoredContent.meta.total)
         done()
       })
+        .catch((error) => {
+          console.log('Error returning multiple unscored results', error)
+          done.fail()
+        })
     })
 
     it('should return no results', done => {
       const params = {
         filter: {
           q: 'http://unscored-uri.com/'
+        },
+        pagination: {
+          page: 1,
+          perPage: 25
+        },
+        sort: {
+          field: 'id',
+          order: 'ASC'
         }
       }
 
       const mockApiResponse = {
-        text: jest.fn(() => Promise.resolve(JSON.stringify([]))),
+        text: jest.fn(() => Promise.resolve(JSON.stringify({data: [], meta: {total: 0}}))),
         status: 200,
         statusText: 'OK',
         headers: {}
@@ -451,8 +599,13 @@ describe('GET LIST', () => {
         expect(response).toBeDefined()
         expect(response.data).toBeDefined()
         expect(response.data).toEqual([])
+        expect(response.total).toEqual(0)
         done()
       })
+        .catch((error) => {
+          console.log('Error returning no unscored results', error)
+          done.fail()
+        })
     })
   })
 })
