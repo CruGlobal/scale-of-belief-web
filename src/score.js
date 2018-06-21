@@ -40,7 +40,7 @@ const validateScore = (record) => {
     errors.id = ['URI is required']
   }
 
-  if (!score) {
+  if (score === undefined) {
     errors.score = ['Score values are required']
     return errors
   }
