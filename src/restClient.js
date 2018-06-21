@@ -40,8 +40,26 @@ const convertRESTRequestToHTTP = (type, resource, params) => {
         // short-circuit
         return {}
       }
+
+      let orderBy = params.sort['field']
+
+      if (orderBy.startsWith('Score.')) {
+        orderBy = orderBy.substring(6)
+      }
+
+      if (resource === 'api-users' && orderBy === 'id') {
+        orderBy = 'guid'
+      }
+
+      if (orderBy === 'id') {
+        orderBy = 'uri'
+      }
       const query = {
-        uri: JSON.stringify(params.filter['q'])
+        uri: JSON.stringify(params.filter['q']),
+        page: params.pagination['page'],
+        per_page: params.pagination['perPage'],
+        order_by: orderBy,
+        order: params.sort['order']
       }
       url = `${API_URL}/${resource}?${stringify(query)}`
       break
@@ -93,8 +111,19 @@ const convertHTTPResponseToREST = (response, type, resource, params) => {
         }
       }
       const { json } = response
+
+      let listData = json
+      if (json.data) {
+        listData = json.data
+      }
+
+      let total = json.length
+      if (json.meta && json.meta.total !== null && json.meta.total >= 0) {
+        total = parseInt(json.meta.total, 10)
+      }
+
       return {
-        data: json.map((x) => {
+        data: listData.map((x) => {
           // This is the case for /content which brings back an array of strings
           if (typeof x === 'string') {
             return {
@@ -107,7 +136,7 @@ const convertHTTPResponseToREST = (response, type, resource, params) => {
             user: x
           }
         }),
-        total: json.length
+        total: total
       }
     }
     default:

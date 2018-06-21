@@ -11,7 +11,7 @@ const ApiUserActions = () => (
 )
 
 export const ApiUsersList = (props) => (
-  <List title='Existing API Users' actions={<ApiUserActions />} {...props}>
+  <List title='Existing API Users' actions={<ApiUserActions />} {...props} perPage={25}>
     <Datagrid>
       <TextField source='id' label='GUID' />
       <TextField source='user.contact_email' label='Email' />
