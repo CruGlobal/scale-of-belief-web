@@ -70,7 +70,7 @@ const convertRESTRequestToHTTP = (type, resource, params) => {
       options.method = 'POST'
 
       let json
-      if (params.data.score) {
+      if (params.data.score !== undefined) {
         json = {
           uri: params.data.id,
           score: params.data.score
