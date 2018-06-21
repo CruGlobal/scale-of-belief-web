@@ -2,13 +2,20 @@ import React, { Component } from 'react'
 import FlatButton from 'material-ui/FlatButton'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { push as pushAction } from 'react-router-redux'
 import ContentCreateIcon from 'material-ui/svg-icons/content/create'
+import ScoreCreate from './CreateScoreModal'
+import * as actions from '../actions'
 
 class CreateScoreButton extends Component {
   handleClick = () => {
-    const { push, record } = this.props
-    push('/score/create?id=' + encodeURIComponent(record.id))
+    const { dispatch, record } = this.props
+    return dispatch(actions.openModal({
+      id: record.id,
+      type: 'custom',
+      content: <ScoreCreate resource='score' location={window.location} item={record} />,
+      onClose: () => {},
+      closeText: 'Cancel'
+    }))
   }
 
   render () {
@@ -17,10 +24,14 @@ class CreateScoreButton extends Component {
 }
 
 CreateScoreButton.propTypes = {
-  push: PropTypes.func,
   record: PropTypes.object
 }
 
-export default connect(null, {
-  push: pushAction
-})(CreateScoreButton)
+export default connect(
+  null,
+  function mapDispatchToProps(dispatch) {
+    return {
+      dispatch
+    }
+  }
+)(CreateScoreButton)

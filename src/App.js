@@ -9,6 +9,7 @@ import { ContentList } from './content'
 import { ApiUserShow, ApiUserEdit, ApiUserCreate } from './apiUser'
 import restClient from './restClient'
 import Dashboard from './dashboard'
+import customReducer from './reducer'
 
 const App = () => (
   <Admin
@@ -16,7 +17,8 @@ const App = () => (
     authClient={authClient}
     loginPage={loginPage}
     restClient={restClient}
-    dashboard={Dashboard}>
+    dashboard={Dashboard}
+    customReducers={{customReducer}}>
     <Resource name='scores' list={ScoreList} />
     <Resource name='score' show={ScoreShow} edit={ScoreEdit} create={ScoreCreate} />
     <Resource name='content' list={ContentList} options={{ label: 'Content' }} />

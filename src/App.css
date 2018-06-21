@@ -30,3 +30,51 @@
 .keyword-label {
   font-weight: bold;
 }
+
+.modals {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+}
+.modal-wrapper{
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  top: 0;
+  background: rgba(0,0,0,0.3);
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.modal {
+  width: 200px;
+  background: #fff;
+  border-radius: 5px;
+  min-width: 500px;
+  position: relative;
+}
+
+.modal-content {
+  background: rgba(193, 29, 29,0.5);
+  color: #fff;
+  height: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modals .close {
+  position: absolute !important;
+  bottom: 12px;
+  right: 50px;
+  background-color: transparent;
+  font-size: 2em;
+}
+
+.modalUri {
+  width: 300px !important;
+}
