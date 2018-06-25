@@ -32,8 +32,8 @@ class Modal extends Component {
           <div className='modal'>
             <div className='text'>{text}</div>
             <div className='buttons'>
-              <button className='modal-button' onClick={() => this.onConfirm()}>{confirmationText || 'Confirm'}</button>
               <button className='modal-button' onClick={() => this.onClose()}>{closeText || 'Close'}</button>
+              <button className='modal-button' onClick={() => this.onConfirm()}>{confirmationText || 'Confirm'}</button>
             </div>
           </div>
         </div>
