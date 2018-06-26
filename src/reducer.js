@@ -2,7 +2,7 @@ const initialState = {
   modals: []
 }
 
-function reducer(state = initialState, action) {
+function reducer (state = initialState, action) {
   switch (action.type) {
     case 'OPEN_MODAL':
       return {
