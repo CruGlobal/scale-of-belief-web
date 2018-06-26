@@ -80,7 +80,7 @@ const convertRESTRequestToHTTP = (type, resource, params) => {
           guid: params.data.id,
           contact_email: params.data.user.contact_email,
           api_pattern: params.data.user.api_pattern,
-          type: params.data.user.type
+          type: params.data.user.type || ''
         }
       }
 
