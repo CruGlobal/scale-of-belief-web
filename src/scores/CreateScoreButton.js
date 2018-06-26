@@ -29,7 +29,7 @@ CreateScoreButton.propTypes = {
 
 export default connect(
   null,
-  function mapDispatchToProps(dispatch) {
+  function mapDispatchToProps (dispatch) {
     return {
       dispatch
     }

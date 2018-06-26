@@ -8,7 +8,7 @@ import * as actions from './actions'
 import FlatButton from 'material-ui/FlatButton'
 
 class Modal extends Component {
-  onClose(){
+  onClose () {
     if (this.props.item.onClose) {
       this.props.item.onClose()
       this.props.onClose(this.props.item)
@@ -16,13 +16,13 @@ class Modal extends Component {
       this.props.onClose(this.props.item)
     }
   }
-  onConfirm(){
+  onConfirm () {
     if (this.props.item.onConfirm) {
       this.props.item.onConfirm()
       this.props.onClose(this.props.item)
     }
   }
-  render() {
+  render () {
     const { zIndex } = this.props
     const { type } = this.props.item
     if (type === 'confirmation') {
@@ -50,18 +50,18 @@ class Modal extends Component {
       )
     }
     return (
-        <div></div>
+      <div />
     )
   }
 }
 
 class Modals extends Component {
-  render() {
+  render () {
     let modals
     if (this.props.modals) {
       modals = this.props.modals.map((item, i) =>
         <Modal item={item} key={i} zIndex={i} onClose={(item) => this.props.closeModal(item)} />)
-      }
+    }
     return (
       <div className='modals'>
         {modals}
@@ -71,12 +71,12 @@ class Modals extends Component {
 }
 
 const ModalContainer = connect(
-  function mapStateToProps(state) {
+  function mapStateToProps (state) {
     return {
       modals: state.customReducer.modals
     }
   },
-  function mapDispatchToProps(dispatch) {
+  function mapDispatchToProps (dispatch) {
     return bindActionCreators(actions, dispatch)
   }
 )(Modals)

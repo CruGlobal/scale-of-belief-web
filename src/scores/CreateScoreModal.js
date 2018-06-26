@@ -39,7 +39,7 @@ class CreateScoreModal extends Component {
       return dispatch(actions.closeModal({
         id: item.id,
         type: 'custom',
-        onClose: () => {},
+        onClose: () => {}
       }))
     } else {
       let errorMessage = recordForm.syncErrors.score || recordForm.syncErrors.id || ''
@@ -47,7 +47,7 @@ class CreateScoreModal extends Component {
     }
   }
 
-  render() {
+  render () {
     const props = this.props
 
     return (
@@ -75,12 +75,12 @@ CreateScoreModal.propTypes = {
 }
 
 export default connect(
-  function mapStateToProps(state, props) {
+  function mapStateToProps (state, props) {
     return ({
       form: state.form
     })
   },
-  function mapDispatchToProps(dispatch) {
+  function mapDispatchToProps (dispatch) {
     return {
       dispatch
     }
