@@ -28,8 +28,15 @@ const convertRESTRequestToHTTP = (type, resource, params) => {
 
   switch (type) {
     case GET_ONE: {
+      let uri = params.id
+
+      let protocolPosition = params.id.indexOf('://')
+      if (protocolPosition > -1 && params.id.indexOf('%') === -1) {
+        uri = handleEncoding(params.id)
+      }
+
       const query = {
-        uri: params.id,
+        uri: uri,
         guid: params.id
       }
       url = `${API_URL}/${resource}?${stringify(query)}`
@@ -71,8 +78,14 @@ const convertRESTRequestToHTTP = (type, resource, params) => {
 
       let json
       if (params.data.score !== undefined) {
+        let uri = params.data.id
+
+        if (uri.indexOf('%') === -1) {
+          uri = handleEncoding(uri)
+        }
+
         json = {
-          uri: params.data.id,
+          uri: uri,
           score: params.data.score
         }
       } else if (params.data.user) {
@@ -92,6 +105,30 @@ const convertRESTRequestToHTTP = (type, resource, params) => {
     }
   }
   return { url, options }
+}
+
+const handleEncoding = function (original) {
+  let protocolPosition = original.indexOf('://')
+  let protocol = original.substring(0, protocolPosition + 3)
+  let urlBody = original.substring(protocolPosition + 3)
+  let pieces = urlBody.split('/')
+  let encodedPieces = []
+
+  for (let i = 0; i < pieces.length; i++) {
+    let piece = pieces[i]
+    // Handle the bulk of the URI encoding
+    let encodedPiece = encodeURIComponent(piece)
+
+    // These are for the differences between Java and Javascript URI encoding
+    encodedPiece = encodedPiece.replace(/%2B/g, '+')
+    encodedPiece = encodedPiece.replace(/\(/g, '%28')
+    encodedPiece = encodedPiece.replace(/\)/g, '%29')
+    encodedPiece = encodedPiece.toLowerCase()
+
+    encodedPieces.push(encodedPiece)
+  }
+
+  return protocol + encodedPieces.join('/')
 }
 
 /**
@@ -130,8 +167,13 @@ const convertHTTPResponseToREST = (response, type, resource, params) => {
               id: x
             }
           }
+
+          let uri = null
+          if (x.uri) {
+            uri = decodeURIComponent(x.uri)
+          }
           return {
-            id: x.uri || x.guid,
+            id: uri || x.guid,
             score: x.score,
             user: x
           }
@@ -141,9 +183,14 @@ const convertHTTPResponseToREST = (response, type, resource, params) => {
     }
     default:
       const { json } = response
+
+      let uri = null
+      if (json.uri) {
+        uri = decodeURIComponent(json.uri)
+      }
       return {
         data: {
-          id: json.uri || json.guid,
+          id: uri || json.guid,
           score: json.score,
           user: json
         }
