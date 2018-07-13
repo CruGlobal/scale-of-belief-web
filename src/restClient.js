@@ -61,8 +61,15 @@ const convertRESTRequestToHTTP = (type, resource, params) => {
       if (orderBy === 'id') {
         orderBy = 'uri'
       }
+
+      let uri = params.filter['q']
+
+      if (resource !== 'api-users' && uri.indexOf('%') === -1) {
+        uri = handleEncoding(uri)
+      }
+
       const query = {
-        uri: JSON.stringify(params.filter['q']),
+        uri: JSON.stringify(uri),
         page: params.pagination['page'],
         per_page: params.pagination['perPage'],
         order_by: orderBy,
