@@ -12,7 +12,7 @@ const ContentFilter = (props) => (
 export const ContentList = (props) => (
   <div>
     <ModalContainer />
-    <List title='Content Without Scores' {...props} filters={<ContentFilter />} perPage={25}>
+    <List title='Create New Scores' {...props} filters={<ContentFilter />} perPage={25}>
       <Datagrid>
         <UrlField source='id' label='URI' />
         <CreateScoreButton />
