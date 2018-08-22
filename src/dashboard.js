@@ -8,10 +8,14 @@ export default () => (
     <Card>
       <ViewTitle title='Events' />
       <CardText>
-        An event may be viewing a web page, clicking a button, attending a conference, or any other way people
-        are interacting with Cru. Please score your event based on the level of interest each group of people
-        on the Scale of Belief would have in it. While scoring, keep in mind the definitions for each stage
-        on the Scale of Belief.
+        <p>An "event" is any interaction a user has with Cru about which we track data.</p>
+        <p className='indented-paragraph'>
+            This can come in two forms, online and offline. Online is any piece of data we track that occurs online
+            (page or screen views, articles read, videos watched, etc).
+            Offline is any piece of data that occurs "in real life" and is tracked digitally
+            (example - someone prayed for you and recorded it in GodTools or we tracked that someone went to a conference
+            or on a mission trip).
+        </p>
       </CardText>
     </Card>
     <br />
