@@ -177,13 +177,13 @@ export default () => (
         </p>
         <p>
           Actively involved in their Christian community including regular attendance,
-           service and giving at their church, discipleship and being discipled, and evangelizing.
-           They are intentionally involved in non-Christian community, such as building relationships
-           with neighbors or co-workers, as a means of sharing the gospel.
-           They are engaged in missions opportunities and look for opportunities to evangelize wherever they are.
-           A multiplier is not engaged only in addition of disciples, no matter how broad the addition may be.
-           A person is also not a multiplier if they only have the intent to multiply but have not yet begun
-           to see multiplication happen through generations or a network of influence.
+          service and giving at their church, discipleship and being discipled, and evangelizing.
+          They are intentionally involved in non-Christian community, such as building relationships
+          with neighbors or co-workers, as a means of sharing the gospel.
+          They are engaged in missions opportunities and look for opportunities to evangelize wherever they are.
+          A multiplier is not engaged only in addition of disciples, no matter how broad the addition may be.
+          A person is also not a multiplier if they only have the intent to multiply but have not yet begun
+          to see multiplication happen through generations or a network of influence.
         </p>
       </CardText>
     </Card>
