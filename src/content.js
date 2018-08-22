@@ -5,7 +5,7 @@ import ModalContainer from './ModalContainer'
 
 const ContentFilter = (props) => (
   <Filter {...props}>
-    <TextInput label='Search' source='q' defaultValue='http://example.com' alwaysOn />
+    <TextInput label='Search' source='q' defaultValue='https://example.com' alwaysOn />
   </Filter>
 )
 

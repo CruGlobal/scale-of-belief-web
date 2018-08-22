@@ -6,7 +6,7 @@ import { FullMap } from './scores/scoreMap'
 
 const ScoresFilter = (props) => (
   <Filter {...props}>
-    <TextInput label='Search' source='q' type='url' defaultValue='http://example.com' alwaysOn />
+    <TextInput label='Search' source='q' type='url' defaultValue='https://example.com' alwaysOn />
   </Filter>
 )
 
