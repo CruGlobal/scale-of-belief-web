@@ -20,10 +20,10 @@ export default () => (
     </Card>
     <br />
 
-    <ViewTitle title='People' />
+    <ViewTitle title='Event Categories' />
 
     <Card>
-      <CardHeader title='Content' titleStyle={{fontSize: '20px', lineHeight: '24px', color: '#f9b625'}} />
+      <CardHeader title='Scale of Belief - Content' titleStyle={{fontSize: '20px', lineHeight: '24px', color: '#f9b625'}} />
       <CardText>
         <p>
           <span className='keyword-label'>Unaware</span> - They have no awareness of the gospel or Christianity.
@@ -65,7 +65,7 @@ export default () => (
     <br />
 
     <Card>
-      <CardHeader title='Curious' titleStyle={{fontSize: '20px', lineHeight: '24px', color: '#dd7d1b'}} />
+      <CardHeader title='Scale of Belief - Curious' titleStyle={{fontSize: '20px', lineHeight: '24px', color: '#dd7d1b'}} />
       <CardText>
         <p>
           <span className='keyword-label'>Open to Faith</span> - These people are aware of Christianity
@@ -95,7 +95,7 @@ export default () => (
     <br />
 
     <Card>
-      <CardHeader title='Follower' titleStyle={{fontSize: '20px', lineHeight: '24px', color: '#3eb1c8'}} />
+      <CardHeader title='Scale of Belief - Follower' titleStyle={{fontSize: '20px', lineHeight: '24px', color: '#3eb1c8'}} />
       <CardText>
         <p>
           <span className='keyword-label'>Received Christ as Savior</span> - They have professed Christ to be their savior.
@@ -155,7 +155,7 @@ export default () => (
     <br />
 
     <Card>
-      <CardHeader title='Guide' titleStyle={{fontSize: '20px', lineHeight: '24px', color: '#007398'}} />
+      <CardHeader title='Scale of Belief - Guide' titleStyle={{fontSize: '20px', lineHeight: '24px', color: '#007398'}} />
       <CardText>
         <p>
           <span className='keyword-label'>Sharing Faith</span> - They are actively involved in evangelism and discipleship.
