@@ -19,10 +19,10 @@ const App = () => (
     restClient={restClient}
     dashboard={Dashboard}
     customReducers={{customReducer}}>
-    <Resource name='scores' list={ScoreList} />
+    <Resource name='scores' list={ScoreList} options={{ label: 'View or Update Scores' }} />
     <Resource name='score' show={ScoreShow} edit={ScoreEdit} create={ScoreCreate} />
-    <Resource name='content' list={ContentList} options={{ label: 'Content' }} />
-    <Resource name='api-users' list={ApiUsersList} options={{ label: 'API Users' }} />
+    <Resource name='content' list={ContentList} options={{ label: 'Create New Scores' }} />
+    <Resource name='api-users' list={ApiUsersList} options={{ label: 'User Administration' }} />
     <Resource name='api-user' show={ApiUserShow} edit={ApiUserEdit} create={ApiUserCreate} />
   </Admin>
 )
