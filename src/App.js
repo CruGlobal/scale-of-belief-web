@@ -14,7 +14,7 @@ import Menu from './menu'
 
 const App = () => (
   <Admin
-    title='Scale of Belief'
+    title='Cru Event Scoring'
     authClient={authClient}
     loginPage={loginPage}
     restClient={restClient}
