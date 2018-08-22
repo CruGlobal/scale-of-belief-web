@@ -43,6 +43,10 @@ const convertRESTRequestToHTTP = (type, resource, params) => {
       break
     }
     case GET_LIST: {
+      if (resource === 'app-content') {
+        resource = 'content'
+      }
+
       if (!params.filter['q'] && resource !== 'api-users') {
         // short-circuit
         return {}

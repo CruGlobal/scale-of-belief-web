@@ -22,7 +22,8 @@ const App = () => (
     customReducers={{customReducer}}
     menu={Menu}>
     <Resource name='score' show={ScoreShow} edit={ScoreEdit} create={ScoreCreate} />
-    <Resource name='content' list={ContentList} options={{ label: 'Create New Scores' }} />
+    <Resource name='content' list={ContentList} options={{ label: 'Create New Web Scores', defaultValue: 'https://example.com' }} />
+    <Resource name='app-content' list={ContentList} options={{ label: 'Create New App Scores', defaultValue: 'yourappname://' }} />
     <Resource name='scores' list={ScoreList} options={{ label: 'View or Update Scores' }} />
     <Resource name='api-users' list={ApiUsersList} options={{ label: 'User Administration' }} />
     <Resource name='api-user' show={ApiUserShow} edit={ApiUserEdit} create={ApiUserCreate} />
