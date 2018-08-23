@@ -10,7 +10,7 @@ import { ApiUserShow, ApiUserEdit, ApiUserCreate } from './apiUser'
 import restClient from './restClient'
 import Dashboard from './dashboard'
 import customReducer from './reducer'
-import Menu from './menu'
+import messages from './i18n/messages'
 
 const App = () => (
   <Admin
@@ -20,7 +20,7 @@ const App = () => (
     restClient={restClient}
     dashboard={Dashboard}
     customReducers={{customReducer}}
-    menu={Menu}>
+    messages={messages}>
     <Resource name='score' show={ScoreShow} edit={ScoreEdit} create={ScoreCreate} />
     <Resource name='content' list={ContentList} options={{ label: 'Create New Web Scores', defaultValue: 'https://example.com' }} />
     <Resource name='app-content' list={ContentList} options={{ label: 'Create New App Scores', defaultValue: 'yourappname://' }} />
