@@ -5,14 +5,14 @@ import ModalContainer from './ModalContainer'
 
 const ContentFilter = (props) => (
   <Filter {...props}>
-    <TextInput label='Search' source='q' defaultValue='http://example.com' alwaysOn />
+    <TextInput label='Search' source='q' defaultValue={props.defaultValue} alwaysOn />
   </Filter>
 )
 
 export const ContentList = (props) => (
   <div>
     <ModalContainer />
-    <List title='Content Without Scores' {...props} filters={<ContentFilter />} perPage={25}>
+    <List title={props.options.label} {...props} filters={<ContentFilter defaultValue={props.options.defaultValue} />} perPage={25}>
       <Datagrid>
         <UrlField source='id' label='URI' />
         <CreateScoreButton />
