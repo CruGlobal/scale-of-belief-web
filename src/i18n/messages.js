@@ -1,5 +1,3 @@
-'use strict'
-
 import defaultMessages from 'admin-on-rest/src/i18n/messages'
 
 let messages = {
