@@ -1,21 +1,54 @@
 language: node_js
-node_js: "lts/*"
-sudo: required
+node_js: "8"
+sudo: false
 env:
   global:
+    # Global environment variables
     - AWS_KEY=AKIAI6NXUHQB5LIANF6A
     - secure: "MTGBSVoCKmCwXMTFWdTuEgAeicT0dqBXZ2TSnWM6pam9hKYZ8BhIGVvRfVTrjLF9NmYDCYkFUv1KG/Q0Pv0s8ny+fCsj+ZZdPJ2wmKmowN+HYOzFwrLIQbhgK5ZYNHu00acBdKpfTEjoFaKSFmrahK1c68pFzK4/mWBjEH0CJG/khLzEMsp081fGx/Bt+31HLmCTgPBftEVfJYdvPaTsaYVJG4o8iYrKV8xBXXmJ8r+7ulvr54Bcoh385pp5vKSi8Sf3VcEvlFey/GtrbcQRcP19K4Icy2r1KP1Ql8Cpr38gKJTBJ1qhf2/ctbAk86kTrFYnQuFvnTeFCblP0Dukp0XN8yVEqmbT7MqY2iIMNHnNBVK5D0tOtouKXxdu/2p+LTeeds2Zng6MtcrGT3+u1OGbA8GH55TLeKLHpU4Nk0v53tuoHS5qc/YpUFY5n4cp2YKrEuZPpIj557GNALBrSqdf4JHfplvCf5WqSVRAVbVFw7JoYvJZR/feBE+zgW5/VfuIrZsa/iODc+7k10xTgXxEFEe3TdJRdW3Z4mvQcPPApeeP6CN+eDPlA1uptsCpGBCbQtkOyOeuIJ5eHWjwJ2ane4XHhRmtvYUPhMq4O+tFWsDxJEuptoaVnP9X8ttLXxb2OYfRL6sX36LPkhqsHF4YY+Gf62GBWBhvawCdjQc="
-    - REACT_APP_API_URL=https://content-scoring-stage.cru.org/api
-    - REACT_APP_SERVICE_URL=https://content-scoring-stage.cru.org/api/login
+    - REACT_APP_PROJECT_NAME=scale-of-belief-web
     - REACT_APP_KEY_CLIENT_ID=6450376846313417626
     - REACT_APP_KEY_URL=https://thekey.me/cas
+
+    # Production
+    - PROD_REACT_APP_API_URL=https://content-scoring.cru.org/api
+    - PROD_REACT_APP_SERVICE_URL=https://content-scoring.cru.org/api/login
+
+    # Stage / other
+    - STAGE_REACT_APP_API_URL=https://content-scoring-stage.cru.org/api
+    - STAGE_REACT_APP_SERVICE_URL=https://content-scoring-stage.cru.org/api/login
+
 cache:
   directories:
   - node_modules
+
 before_script:
-  - npm install
-script: npm run build
+  - |
+    if [ "$TRAVIS_BRANCH" = "master" ]; then
+      for prefixed_envvar in ${!PROD_*}; do
+        eval export ${prefixed_envvar#PROD_}="${!prefixed_envvar}"
+      done
+    else
+      for prefixed_envvar in ${!STAGE_*}; do
+        eval export ${prefixed_envvar#STAGE_}="${!prefixed_envvar}"
+      done
+    fi
+
+script:
+  - npm run build
+
 deploy:
+  - provider: s3
+    access_key_id: $AWS_KEY
+    secret_access_key: $AWS_SECRET
+    bucket: scale-of-belief-production-app-public
+    local_dir: build
+    acl: public_read
+    cache_control: "max-age=300"
+    skip_cleanup: true
+    on:
+      branch: master
+
   - provider: s3
     access_key_id: $AWS_KEY
     secret_access_key: $AWS_SECRET
@@ -25,4 +58,4 @@ deploy:
     cache_control: "max-age=300"
     skip_cleanup: true
     on:
-      branch: master
+      branch: staging
