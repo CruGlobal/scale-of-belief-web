@@ -83,3 +83,7 @@
 .modalUri {
   width: 300px !important;
 }
+
+.hidden {
+  display: none;
+}
