@@ -63,7 +63,7 @@ class Modals extends Component {
         <Modal item={item} key={i} zIndex={i} onClose={(item) => this.props.closeModal(item)} />)
     }
     return (
-      <div className='modals'>
+      <div className={modals.length ? 'modals' : 'modals hidden'}>
         {modals}
       </div>
     )
