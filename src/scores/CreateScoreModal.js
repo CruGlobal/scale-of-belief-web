@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Create, SimpleForm, SelectInput, CREATE, refreshView, showNotification } from 'admin-on-rest'
 import ReactTooltip from 'react-tooltip'
 import TooltipTextInput from '../TooltipTextInput'
-import { PartialMap } from '../scores/scoreMap'
+import { FullMap } from '../scores/scoreMap'
 import { connect } from 'react-redux'
 import * as actions from '../actions'
 import PropTypes from 'prop-types'
@@ -62,7 +62,7 @@ class CreateScoreModal extends Component {
               Growth Solutions Team at <a href='mailto:dps-growthsolutions@cru.org'>dps-growthsolutions@cru.org</a>.
             </p>
           </ReactTooltip>
-          <SelectInput label='Audience' source='score' choices={PartialMap()} />
+          <SelectInput label='Audience' source='score' choices={FullMap()} />
         </SimpleForm>
       </Create>
     )
