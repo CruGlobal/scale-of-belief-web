@@ -98,7 +98,7 @@ export default () => (
       <CardHeader title='Scale of Belief - Follower' titleStyle={{fontSize: '20px', lineHeight: '24px', color: '#3eb1c8'}} />
       <CardText>
         <p>
-          <span className='keyword-label'>Received Christ as Savior</span> - They have professed Christ as their Savior
+          <span className='keyword-label'>Professing to be a Christian</span> - They have professed Christ as their Savior
           at some point in their life.
         </p>
         <p>
