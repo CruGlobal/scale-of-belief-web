@@ -21,7 +21,7 @@ const validateScore = (record) => {
     return errors
   }
 
-  if (score < 0 || score > 8) {
+  if (score < 0 || score > 10) {
     errors.score = 'Audience must be one of the given options'
   }
 
