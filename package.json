@@ -22,8 +22,8 @@
     "babel-eslint": "^7.2.3",
     "eslint": "^4.19.1",
     "eslint-plugin-react": "^7.7.0",
-    "jest-cli": "^20.0.4",
-    "react-scripts": "^1.1.4",
+    "jest-cli": "^23.5.0",
+    "react-scripts": "^1.1.5",
     "snazzy": "^7.1.1",
     "standard": "^11.0.1"
   },
