@@ -1,0 +1,52 @@
+name: Build
+
+on:
+  - push
+  - pull_request
+
+jobs:
+  env:
+    REACT_APP_PROJECT_NAME: scale-of-belief-web
+    REACT_APP_KEY_CLIENT_ID: 6450376846313417626
+    REACT_APP_KEY_URL: https://thekey.me/cas
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2
+
+      - name: Set up node version
+        uses: actions/setup-node@v2
+        with:
+          node-version: '8'
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm run build
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+
+    env:
+      REACT_APP_API_URL: ${{ secrets.REACT_APP_API_URL }}
+      REACT_APP_SERVICE_URL: ${{ secrets.REACT_APP_SERVICE_URL }}
+
+    steps:
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@036a4a1ddf2c0e7a782dca6e083c6c53e5d90321
+        with:
+          aws-region: us-east-1
+          role-to-assume: ${{ secrets.AWS_GITHUB_ACTIONS_ROLE }}
+
+      - name: Deploy to S3
+        uses: reggionick/s3-deploy@v3
+        with:
+          folder: build
+          bucket: ${{ secrets.S3_BUCKET_NAME }}
+          bucket-region: "us-east-1"
+
+
+
+
