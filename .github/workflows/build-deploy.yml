@@ -1,0 +1,37 @@
+name: Build & Deploy S3
+
+on:
+  push:
+    branches:
+      # Automatically build and deploy master and staging. Additional branches may be added.
+      - master
+      - staging
+
+jobs:
+  deploy:
+    name: Build and Deploy
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    environment:
+      name: ${{ github.ref == 'refs/heads/master' && 'prod' || 'stage' }}
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: npm
+      - uses: aws-actions/configure-aws-credentials@v1-node16
+        with:
+          role-to-assume: ${{ secrets.AWS_IAM_ROLE_ARN }}
+          aws-region: us-east-1
+      - uses: CruGlobal/.github/actions/secrets@v1
+        with:
+          project-name: scale-of-belief-web
+          environment: ${{ github.ref == 'refs/heads/master' && 'production' || 'staging' }}
+          type: ALL
+      - run: npm ci
+      - run: npm run build
+      - run: aws s3 sync build/ s3://${{ secrets.AWS_S3_BUCKET }} --acl public-read --cache-control "max-age=300"
