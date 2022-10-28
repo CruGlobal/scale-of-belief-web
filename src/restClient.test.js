@@ -5,8 +5,12 @@ import {
   CREATE,
   UPDATE
 } from 'admin-on-rest'
+import * as authClient from './authClient'
 
 beforeEach(() => {
+  authClient.authCheck = jest.fn(() => Promise.resolve())
+})
+afterEach(() => {
   jest.clearAllMocks()
 })
 describe('GET ONE', () => {
@@ -886,6 +890,73 @@ describe('UPDATE', () => {
         expect(error.status).toEqual(mockApiResponse.status)
         done()
       })
+    })
+  })
+})
+
+describe('authCheck', () => {
+  const params = {
+    filter: {
+      q: 'http://some-uri.com/one'
+    },
+    pagination: {
+      page: 1,
+      perPage: 25
+    },
+    sort: {
+      field: 'Score.id',
+      order: 'ASC'
+    }
+  }
+  const existingScores = {
+    data: [],
+    meta: {
+      total: 0
+    }
+  }
+  const scoreResponse = {
+    text: jest.fn(() => Promise.resolve(JSON.stringify(existingScores))),
+    status: 200,
+    statusText: 'OK',
+    headers: {}
+  }
+
+  it('delays executing the request', (done) => {
+    let authCheckResolve
+    const authCheckPromise = new Promise((resolve) => {
+      authCheckResolve = resolve
+    })
+
+    global.fetch.mockReturnValue(Promise.resolve(scoreResponse))
+
+    authClient.authCheck.mockReturnValue(authCheckPromise)
+    restClient(GET_LIST, 'scores', params)
+    expect(global.fetch).not.toHaveBeenCalled()
+    authCheckResolve()
+    authCheckPromise.then(() => {
+      expect(global.fetch).toHaveBeenCalledTimes(1)
+      done()
+    })
+  })
+
+  it('deduplicates auth checks', (done) => {
+    let authCheckResolve
+    const authCheckPromise = new Promise((resolve) => {
+      authCheckResolve = resolve
+    })
+
+    global.fetch.mockReturnValue(Promise.resolve(scoreResponse))
+
+    authClient.authCheck.mockReturnValue(authCheckPromise)
+    restClient(GET_LIST, 'scores', params)
+    expect(authClient.authCheck).toHaveBeenCalledTimes(1)
+    restClient(GET_LIST, 'scores', params)
+    expect(authClient.authCheck).toHaveBeenCalledTimes(1)
+    authCheckResolve()
+    authCheckPromise.then(() => {
+      restClient(GET_LIST, 'scores', params)
+      expect(authClient.authCheck).toHaveBeenCalledTimes(2)
+      done()
     })
   })
 })
