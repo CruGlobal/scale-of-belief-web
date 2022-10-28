@@ -1,22 +1,38 @@
-/* global sessionStorage, fetch, Request, Headers */
+/* global sessionStorage, fetch */
 import { AUTH_LOGIN, AUTH_LOGOUT, AUTH_ERROR, AUTH_CHECK } from 'admin-on-rest'
 import HttpError from './HttpError'
 import jwtDecode from 'jwt-decode'
+import { OktaAuth } from '@okta/okta-auth-js'
 
-export default (type, params) => {
+export const oktaAuthClient = new OktaAuth({
+  issuer: process.env.REACT_APP_OKTA_ISSUER,
+  clientId: process.env.REACT_APP_OKTA_CLIENT_ID,
+  redirectUri: window.location.origin,
+  postLogoutRedirectUri: window.location.origin,
+  scopes: ['openid', 'email', 'profile', 'offline_access'],
+  tokenManager: {
+    // sessionStorage doesn't exist in Node, so switch to memory storage during testing
+    storage: typeof jest === 'undefined' ? 'sessionStorage' : 'memory'
+  },
+  devMode: window.location.host.startsWith('localhost') && typeof jest === 'undefined'
+})
+
+// Automatically refresh access tokens using the refresh token if it expires
+oktaAuthClient.start()
+
+export default async (type, params) => {
   switch (type) {
     case AUTH_LOGIN: {
-      return Promise.resolve()
+      return
     }
     case AUTH_LOGOUT: {
-      sessionStorage.removeItem('accessToken')
-
-      if (sessionStorage.getItem('sessionToken')) {
+      if (await oktaAuthClient.isAuthenticated()) {
         sessionStorage.removeItem('sessionToken')
-        window.location.href = process.env.REACT_APP_KEY_URL + '/logout'
+        return oktaAuthClient.signOut({
+          clearTokensBeforeRedirect: true
+        })
       }
-
-      return Promise.resolve()
+      return
     }
     case AUTH_ERROR: {
       const status = params.message.status
@@ -26,69 +42,53 @@ export default (type, params) => {
       return Promise.resolve()
     }
     case AUTH_CHECK: {
+      if (oktaAuthClient.isLoginRedirect()) {
+        // Extract the authorization code from the login redirect URL
+        await oktaAuthClient.handleLoginRedirect()
+      }
+
       const sessionToken = sessionStorage.getItem('sessionToken')
       if (sessionToken) {
         const session = jwtDecode(sessionToken)
         const isExpired = (new Date().getTime() / 1000) - session.exp >= 0
 
         if (!isExpired) {
-          return Promise.resolve()
+          return
         }
 
         sessionStorage.removeItem('sessionToken')
       }
 
-      const serviceUrl = process.env.REACT_APP_SERVICE_URL
-      const authenticationUrl = process.env.REACT_APP_KEY_URL
-      const keyClientId = process.env.REACT_APP_KEY_CLIENT_ID
-      const accessToken = sessionStorage.getItem('accessToken')
+      const accessToken = oktaAuthClient.getAccessToken()
       if (!accessToken) {
-        window.location.href = authenticationUrl + '/login' +
-              '?response_type=token' +
-              '&client_id=' + keyClientId +
-              '&redirect_uri=' + encodeURIComponent(window.location.origin) +
-              '&scope=fullticket'
+        await oktaAuthClient.signInWithRedirect({
+          originalUri: window.location.href
+        })
 
         let json = {
           status: 401,
           message: 'Unauthorized'
         }
-        return Promise.reject(new HttpError(json.message, json.status, json))
+        throw new HttpError(json.message, json.status, json)
       }
 
-      sessionStorage.removeItem('accessToken')
-      const oauthPath = '/api/oauth/ticket'
-      const serviceParameter = '?service=' + encodeURIComponent(serviceUrl)
-
-      return fetch(new Request(authenticationUrl + oauthPath + serviceParameter, {
-        method: 'GET',
-        headers: new Headers({
-          Authorization: 'Bearer ' + accessToken,
-          Accept: 'application/json'
+      // get JWT from API
+      return fetch(process.env.REACT_APP_API_URL + '/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          access_token: accessToken
         })
-      })).then(response => {
+      }).then(response => {
         if (response.status !== 200) {
           throw new Error(response.statusText)
         }
         return response.json()
-      }).then((ticketObj) => {
-        // get JWT from API
-        return fetch(new Request(serviceUrl, {
-          method: 'POST',
-          headers: new Headers({
-            'Content-Type': 'application/json'
-          }),
-          body: JSON.stringify(ticketObj)
-        })).then(response => {
-          if (response.status !== 200) {
-            throw new Error(response.statusText)
-          }
-          return response.json()
-        }).then((response) => {
-          // save session JWT to sessionStorage
-          sessionStorage.setItem('sessionToken', response)
-          return Promise.resolve()
-        })
+      }).then((response) => {
+        // save session JWT to sessionStorage
+        sessionStorage.setItem('sessionToken', response)
       })
     }
     default: {

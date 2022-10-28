@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@okta/okta-auth-js": "^7.0.1",
     "admin-on-rest": "^1.4.0",
     "jwt-decode": "^2.2.0",
     "react": "^15.6.2",
