@@ -7,6 +7,7 @@ import {
   fetchUtils
 } from 'admin-on-rest'
 import { stringify } from 'query-string'
+import { authCheck } from './authClient'
 
 const API_URL = process.env.REACT_APP_API_URL
 
@@ -16,7 +17,7 @@ const API_URL = process.env.REACT_APP_API_URL
  * @param {Object} params The REST request params, depending on the type
  * @returns {Object} { url, options } The HTTP request parameters
  */
-const convertRESTRequestToHTTP = (type, resource, params) => {
+export const convertRESTRequestToHTTP = (type, resource, params) => {
   let url = ''
   const sessionToken = sessionStorage.getItem('sessionToken')
   const options = {}
@@ -209,13 +210,32 @@ const convertHTTPResponseToREST = (response, type, resource, params) => {
   }
 }
 
+let pendingAuthCheck = null
+
 /**
  * @param {string} type Request type, e.g GET_LIST
  * @param {string} resource Resource name, e.g. "posts"
  * @param {Object} payload Request parameters. Depends on the request type
  * @returns {Promise} the Promise for a REST response
  */
-export default (type, resource, params) => {
+export default async (type, resource, params) => {
+  // Wait to validate the session token before executing the request. See
+  // the comment in authClient.js at `case AUTH_CHECK:` for context
+
+  // Prevent parallel auth checks
+  if (pendingAuthCheck) {
+    // Wait on the existing auth check
+    await pendingAuthCheck
+  } else {
+    // Start a new auth check
+    try {
+      pendingAuthCheck = authCheck()
+      await pendingAuthCheck
+    } finally {
+      pendingAuthCheck = null
+    }
+  }
+
   const { url, options } = convertRESTRequestToHTTP(type, resource, params)
   const { fetchJson } = fetchUtils
 

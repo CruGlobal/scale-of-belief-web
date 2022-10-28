@@ -1,6 +1,6 @@
 /* global sessionStorage */
-import { AUTH_LOGOUT, AUTH_ERROR, AUTH_CHECK } from 'admin-on-rest'
-import authClient, { oktaAuthClient } from './authClient'
+import { AUTH_LOGOUT, AUTH_ERROR } from 'admin-on-rest'
+import authClient, { authCheck, oktaAuthClient } from './authClient'
 
 const futureJwt = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1MjQyNDgzNTQ5OTk5fQ.DJI5Gx73hrueIQFi_FAZhTgUj4cRXSumJTySkcbgGYc'
 const pastJwt = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1MjQyNDY3fQ.Lh-B5ehegw4KXRki62b-vDgPkdEfG-PSeIDpVQuAfgg'
@@ -80,7 +80,7 @@ describe('Auth Check', () => {
     sessionStorage.getItem.mockReturnValueOnce(futureJwt)
     oktaAuthClient.signInWithRedirect = jest.fn(() => Promise.resolve())
 
-    authClient(AUTH_CHECK, {}).then(() => {
+    authCheck().then(() => {
       expect(sessionStorage.getItem.mock.calls[0][0]).toEqual('sessionToken')
       expect(sessionStorage.removeItem.mock.calls.length).toEqual(0)
       expect(oktaAuthClient.signInWithRedirect).not.toHaveBeenCalled()
@@ -97,7 +97,7 @@ describe('Auth Check', () => {
     global.fetch
       .mockReturnValueOnce(Promise.resolve(mockApiResponse))
 
-    authClient(AUTH_CHECK, {}).then(() => {
+    authCheck().then(() => {
       expect(sessionStorage.getItem.mock.calls.length).toEqual(1)
       expect(sessionStorage.getItem.mock.calls[0][0]).toEqual('sessionToken')
       expect(sessionStorage.removeItem.mock.calls.length).toEqual(1)
@@ -114,7 +114,7 @@ describe('Auth Check', () => {
     global.fetch
       .mockReturnValueOnce(Promise.resolve(mockApiResponse))
 
-    authClient(AUTH_CHECK, {}).then(() => {
+    authCheck().then(() => {
       expect(sessionStorage.setItem.mock.calls.length).toEqual(1)
       expect(sessionStorage.setItem.mock.calls[0][0]).toEqual('sessionToken')
       done()
@@ -134,7 +134,7 @@ describe('Auth Check', () => {
     global.fetch
       .mockReturnValueOnce(Promise.resolve(failedApiResponse))
 
-    authClient(AUTH_CHECK, {}).then(() => {}, (error) => {
+    authCheck().then(() => {}, (error) => {
       expect(error).toBeDefined()
       expect(error.message).toEqual(failedApiResponse.statusText)
       done()
@@ -147,7 +147,7 @@ describe('Auth Check', () => {
     oktaAuthClient.getAccessToken = jest.fn(() => null)
     oktaAuthClient.signInWithRedirect = jest.fn(() => Promise.resolve())
 
-    authClient(AUTH_CHECK, {}).then(() => {}, () => {
+    authCheck().then(() => {}, () => {
       expect(oktaAuthClient.signInWithRedirect).toHaveBeenCalledTimes(1)
       done()
     })
