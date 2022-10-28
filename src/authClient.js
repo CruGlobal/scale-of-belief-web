@@ -44,7 +44,7 @@ export default async (type, params) => {
     case AUTH_CHECK: {
       if (oktaAuthClient.isLoginRedirect()) {
         // Extract the authorization code from the login redirect URL
-        return oktaAuthClient.handleLoginRedirect()
+        await oktaAuthClient.handleLoginRedirect()
       }
 
       const sessionToken = sessionStorage.getItem('sessionToken')
